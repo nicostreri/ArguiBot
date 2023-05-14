@@ -1,0 +1,8 @@
+//CSS spinners
+https://github.com/cssloaders/cssloaders.github.io
+
+//Imagenes
+<a href="https://www.flaticon.es/iconos-gratis/robot" title="robot iconos">Robot iconos creados por Freepik - Flaticon</a>
+
+//Fuentes
+https://github.com/itfoundry/hind-madurai

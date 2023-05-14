@@ -55,11 +55,18 @@
     },
     "security": {
       "csp": null,
-      "dangerousRemoteDomainIpcAccess": [{
-        "domain": "roboticatauri.streri.com",
-        "windows": ["main"],
-        "enableTauriAPI": true
-      }]
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "domain": "roboticatauri.streri.com",
+          "windows": ["main"],
+          "enableTauriAPI": true
+        },
+        {
+          "domain": "archivos.streri.com",
+          "windows": ["main"],
+          "enableTauriAPI": true
+        }
+      ]
     },
     "updater": {
       "active": false
@@ -70,7 +77,18 @@
         "resizable": true,
         "title": "RoboticaSTDesktopApp",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "visible": false,
+        "center": true
+      },
+      {
+        "width": 400,
+        "height": 200,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen",
+        "center": true,
+        "alwaysOnTop": true
       }
     ]
   }
