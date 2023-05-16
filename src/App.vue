@@ -1,52 +1,89 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Greet from "./components/Greet.vue";
-</script>
-
 <template>
-  <div class="container">
-    <h1>Welcome to Tauri!</h1>
-
-    <div class="row">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
+  <div id="app">
+    <BlocklyComponent id="blocklyEditor" :options="options" ref="foo"></BlocklyComponent>
+    <div id="code">
+      <prism-editor v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
     </div>
-
-    <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
-
-    <p>
-      Recommended IDE setup:
-      <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-      +
-      <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-      +
-      <a href="https://github.com/tauri-apps/tauri-vscode" target="_blank"
-        >Tauri</a
-      >
-      +
-      <a href="https://github.com/rust-lang/rust-analyzer" target="_blank"
-        >rust-analyzer</a
-      >
-    </p>
-
-    <Greet />
   </div>
 </template>
 
-<style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
+<script>
+  //Components
+  import BlocklyComponent from "./components/BlocklyComponent.vue";
+  import { PrismEditor } from 'vue-prism-editor';
+  import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
+  import { highlight, languages } from 'prismjs/components/prism-core';
+  import 'prismjs/components/prism-clike';
+  import 'prismjs/components/prism-javascript';
+  import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
-}
+  //Tauri APIs
+  import { invoke } from "@tauri-apps/api";
+
+  //Others
+  import blocklyOptions from "./config/blocklyOptions";
+  import { javascriptGenerator } from "blockly/javascript";
+  // import "./blocks/stocks";
+  
+  export default {
+    data() {
+      return {
+        codeText: "",
+        options: blocklyOptions
+      }
+    },
+    mounted() {
+      invoke('close_splashscreen');
+      this.$refs.foo.workspace.addChangeListener(this.handleWorkspaceChange);
+    },
+    components: {
+      BlocklyComponent,
+      PrismEditor
+    },
+    methods: {
+      highlighter(code) {
+        return highlight(code, languages.js);
+      },
+      handleWorkspaceChange(){
+        const generatedCode = javascriptGenerator.workspaceToCode(this.$refs.foo.workspace);
+        this.codeText = generatedCode;
+      }
+    }
+  }
+</script>
+
+<style>
+  #app {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
+
+  html, body {
+    margin: 0;
+  }
+
+  #code {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    height: 100%;
+    margin: 0;
+    background-color: #f5f2f0;
+    overflow-x: auto;
+  }
+
+  #blocklyEditor {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 70%;
+    height: 100%;
+  }
+
+  .prism-editor__textarea:focus {
+    outline: none;
+  }
 </style>
