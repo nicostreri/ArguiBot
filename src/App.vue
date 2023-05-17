@@ -15,6 +15,7 @@
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollback" :onClick="handleUndo"/></a>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollfront" :onClick="handleRedo" /></a>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save"/></a> <!-- TODO -->
+          <server-status></server-status>
         </template>
       </t-head-menu>
     </t-header>
@@ -28,6 +29,7 @@
 <script>
   //Components
   import BlocklyComponent from "./components/BlocklyComponent.vue";
+  import ServerStatus from "./components/ServerStatus.vue";
   import { PrismEditor } from 'vue-prism-editor';
   import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
   import { highlight, languages } from 'prismjs/components/prism-core';
@@ -56,7 +58,8 @@
     },
     components: {
       BlocklyComponent,
-      PrismEditor
+      PrismEditor,
+      ServerStatus
     },
     methods: {
       highlighter(code) {
