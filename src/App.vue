@@ -1,10 +1,28 @@
 <template>
-  <div id="app">
-    <BlocklyComponent id="blocklyEditor" :options="options" ref="foo"></BlocklyComponent>
-    <div id="code">
-      <prism-editor v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
-    </div>
-  </div>
+  <t-layout class="layout">
+    <t-header>
+      <t-head-menu class="menu" theme="light" value="item1" >
+        <template #logo>
+          HELLO
+        </template>
+        <t-menu-item value="item1">
+          <t-icon name="search" class="t-menu__operations-icon"></t-icon>
+        </t-menu-item>
+        <t-menu-item value="item2"> Option 1 </t-menu-item>
+        <t-menu-item value="item3"> Option 2 </t-menu-item>
+        <t-menu-item value="item4" :disabled="true"> Option 3 </t-menu-item>
+        <template #operations>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollback" :onClick="handleUndo"/></a>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollfront" :onClick="handleRedo" /></a>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save"/></a> <!-- TODO -->
+        </template>
+      </t-head-menu>
+    </t-header>
+    <t-content class="content">
+      <BlocklyComponent class="blockly-editor" :options="options" ref="foo"></BlocklyComponent>
+      <prism-editor class="code-view" v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
+    </t-content>
+  </t-layout>
 </template>
 
 <script>
@@ -47,43 +65,53 @@
       handleWorkspaceChange(){
         const generatedCode = javascriptGenerator.workspaceToCode(this.$refs.foo.workspace);
         this.codeText = generatedCode;
+      },
+      handleUndo(){
+        this.$refs.foo.workspace.undo();
+      },
+      handleRedo(){
+        this.$refs.foo.workspace.undo(true);
       }
     }
   }
 </script>
 
-<style>
-  #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+<style scoped>
+  .layout {
+    width: 100%;
+    min-height: 100%; 
+    position: absolute; 
   }
 
-  html, body {
-    margin: 0;
+  .menu {
+    padding-left: 15px;
   }
 
-  #code {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 30%;
+  .content {
+    width: 100%;
     height: 100%;
     margin: 0;
-    background-color: #f5f2f0;
-    overflow-x: auto;
+    display: table;
   }
 
-  #blocklyEditor {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 70%;
+  .blockly-editor {   
+    float: left; 
+    width: 66%; 
     height: 100%;
+    margin: 0; 
+  } 
+
+  .code-view {
+    float: right; 
+    width: 34%; 
+    height: 100%;
+    margin: 0; 
+    background-color: #F0F0F0;
+    overflow: auto;
   }
 
   .prism-editor__textarea:focus {
     outline: none;
   }
+
 </style>
