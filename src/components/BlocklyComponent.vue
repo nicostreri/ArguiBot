@@ -19,8 +19,9 @@ const props = defineProps(["options"]);
 const blocklyToolbox = ref();
 const blocklyDiv = ref();
 const workspace = shallowRef();
+const svgResize = shallowRef();
 
-defineExpose({ workspace });
+defineExpose({ workspace, svgResize });
 
 onMounted(() => {
   const options = props.options || {};
@@ -28,6 +29,7 @@ onMounted(() => {
     options.toolbox = blocklyToolbox.value;
   }
   workspace.value = Blockly.inject(blocklyDiv.value, options);
+  svgResize.value = Blockly.svgResize;
 });
 </script>
 

@@ -1,27 +1,31 @@
 <template>
   <t-layout class="layout">
     <t-header>
-      <t-head-menu class="menu" theme="light" value="item1" >
+      <t-head-menu class="menu" theme="light" value="item1" expand-type="popup">
         <template #logo>
           HELLO
         </template>
-        <t-menu-item value="item1">
-          <t-icon name="search" class="t-menu__operations-icon"></t-icon>
-        </t-menu-item>
+        <t-submenu title="Editor">
+          <template #icon>
+            <t-icon name="edit-1"/>
+          </template>
+          <t-menu-item :onClick="handleUndo"> Deshacer último cambio</t-menu-item>
+          <t-menu-item :onClick="handleRedo"> Rehacer último cambio</t-menu-item>
+          <t-menu-item :onClick="handleToggleCode"> Ver/Ocultar código generado </t-menu-item>
+        </t-submenu>
         <t-menu-item value="item2"> Option 1 </t-menu-item>
         <t-menu-item value="item3"> Option 2 </t-menu-item>
-        <t-menu-item value="item4" :disabled="true"> Option 3 </t-menu-item>
         <template #operations>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollback" :onClick="handleUndo"/></a>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollfront" :onClick="handleRedo" /></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save"/></a> <!-- TODO -->
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save" :onClick="handleToggleCode"/></a> <!-- TODO -->
           <server-status></server-status>
         </template>
       </t-head-menu>
     </t-header>
     <t-content class="content">
-      <BlocklyComponent class="blockly-editor" :options="options" ref="foo"></BlocklyComponent>
-      <prism-editor class="code-view" v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
+      <BlocklyComponent class="blockly-editor" :class="{'blockly-fullscreen': !toggleCode}" :options="options" ref="foo"></BlocklyComponent>
+      <prism-editor v-if="toggleCode" class="code-view" v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
     </t-content>
   </t-layout>
 </template>
@@ -49,7 +53,8 @@
     data() {
       return {
         codeText: "",
-        options: blocklyOptions
+        options: blocklyOptions,
+        toggleCode: true
       }
     },
     mounted() {
@@ -74,6 +79,12 @@
       },
       handleRedo(){
         this.$refs.foo.workspace.undo(true);
+      },
+      handleToggleCode(){
+        this.toggleCode = !this.toggleCode;
+        setTimeout(() => {
+          this.$refs.foo.svgResize(this.$refs.foo.workspace);
+        }, 50);
       }
     }
   }
@@ -103,6 +114,10 @@
     height: 100%;
     margin: 0; 
   } 
+
+  .blockly-fullscreen {
+    width: 100%;
+  }
 
   .code-view {
     float: right; 
