@@ -18,7 +18,7 @@
         <template #operations>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollback" :onClick="handleUndo"/></a>
           <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollfront" :onClick="handleRedo" /></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save" :onClick="handleToggleCode"/></a> <!-- TODO -->
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save" :onClick="handleSave"/></a>
           <server-status></server-status>
         </template>
       </t-head-menu>
@@ -85,6 +85,9 @@
         setTimeout(() => {
           this.$refs.foo.svgResize(this.$refs.foo.workspace);
         }, 50);
+      },
+      handleSave(){
+        alert("TODO: Implementar guardado remoto en servidor");
       }
     }
   }

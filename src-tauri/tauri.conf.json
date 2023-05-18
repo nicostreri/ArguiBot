@@ -36,6 +36,10 @@
       },
       "path": {
         "all": true
+      },
+      "dialog": {
+        "all": false,
+        "message": true
       }
     },
     "bundle": {
