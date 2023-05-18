@@ -3,7 +3,7 @@
     <t-header>
       <t-head-menu class="menu" theme="light" value="item1" expand-type="popup">
         <template #logo>
-          HELLO
+          <img height="28" src="icon.png" alt="logo" />
         </template>
         <t-submenu title="Editor">
           <template #icon>
