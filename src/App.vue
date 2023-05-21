@@ -49,7 +49,7 @@
   //Others
   import blocklyOptions from "./config/blocklyOptions";
   import arduinoGenerator from "./blockly/generators/arduino";
-  // import "./blocks/stocks";
+  import './blockly/blocks';
   
   export default {
     data() {
