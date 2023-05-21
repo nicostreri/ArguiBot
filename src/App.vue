@@ -38,7 +38,9 @@
   import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
   import { highlight, languages } from 'prismjs/components/prism-core';
   import 'prismjs/components/prism-clike';
-  import 'prismjs/components/prism-javascript';
+  import 'prismjs/components/prism-c';
+  import 'prismjs/components/prism-cpp';
+  import 'prismjs/components/prism-arduino';
   import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
   //Tauri APIs
@@ -46,7 +48,7 @@
 
   //Others
   import blocklyOptions from "./config/blocklyOptions";
-  import { javascriptGenerator } from "blockly/javascript";
+  import arduinoGenerator from "./blockly/generators/arduino";
   // import "./blocks/stocks";
   
   export default {
@@ -68,10 +70,10 @@
     },
     methods: {
       highlighter(code) {
-        return highlight(code, languages.js);
+        return highlight(code, languages.arduino);
       },
       handleWorkspaceChange(){
-        const generatedCode = javascriptGenerator.workspaceToCode(this.$refs.foo.workspace);
+        const generatedCode = arduinoGenerator.workspaceToCode(this.$refs.foo.workspace);
         this.codeText = generatedCode;
       },
       handleUndo(){
