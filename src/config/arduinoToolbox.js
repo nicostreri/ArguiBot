@@ -7,7 +7,7 @@ export default {
             categorystyle: "logic_category",
             contents: [
                 { kind: "block", type: "controls_delay"},
-                //Tiempo desde el arranque (millis)
+                { kind: "block", type: "controls_millis"},
 
                 { kind: "label", text: "Toma de decisión"},
                 { kind: "block", type: "controls_if"},
