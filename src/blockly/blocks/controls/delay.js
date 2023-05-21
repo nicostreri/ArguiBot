@@ -32,7 +32,7 @@ const jsonDefinition = {
  */
 const blockToArduino = function (block) {
     let delayTime = block.getFieldValue("TIME");
-    return `delay(${delayTime});`;
+    return `delay(${delayTime});\n`;
 };
 
 // Block registration
