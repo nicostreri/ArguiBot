@@ -28,7 +28,6 @@ const blockToArduino = function (block) {
     let right = arduinoGenerator.valueToCode(block, "B", order) || "false";
 
     let code = `${left} ${operator} ${right}`;
-    console.log(code);
     return [code, order];
 };
 
