@@ -133,8 +133,4 @@
     overflow: auto;
   }
 
-  .prism-editor__textarea:focus {
-    outline: none;
-  }
-
 </style>
