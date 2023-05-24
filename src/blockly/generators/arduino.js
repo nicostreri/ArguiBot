@@ -155,7 +155,7 @@ arduinoGenerator.finish = function(code) {
   
     let allDefs = includes.join('\n') + variables.join('\n') +
         definitions.join('\n') + functions.join('\n\n');
-    let setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
+    let setup = 'void setup() {\n  ' + setups.join('\n  ') + '\n}\n\n';
     let loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
     return allDefs + setup + loop;
 };
