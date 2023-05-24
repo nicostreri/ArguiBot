@@ -6,3 +6,4 @@ import './logic_ternary';
 import './math_arithmetic';
 import './math_single';
 import './math_modulo';
+import './math_random_int';
