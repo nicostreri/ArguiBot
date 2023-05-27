@@ -10,9 +10,9 @@ const jsonDefinition = {
     "type": blockName,
     "message0": "Tiempo desde el arranque (milisegundos)",
     "output": "Number",
-    "colour": 230,
     "tooltip": "Obtiene la cantidad de milisegundos que transcurrieron desde el encendido de la placa Arduino.",
-    "helpUrl": ""
+    "helpUrl": "",
+    "style": "board_blocks"
 };
 
 /**

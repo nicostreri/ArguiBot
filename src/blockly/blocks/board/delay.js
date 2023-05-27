@@ -20,9 +20,9 @@ const jsonDefinition = {
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "colour": 230,
     "tooltip": "Detiene el programa temporalmente",
-    "helpUrl": ""
+    "helpUrl": "",
+    "style": "board_blocks"
 };
 
 /**
