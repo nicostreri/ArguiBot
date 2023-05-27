@@ -23,6 +23,7 @@ import './math/math_modulo';
 import './math/math_number';
 import './math/math_random_int';
 import './math/math_single';
+import './math/math_ardu_map';
 
 /**
  * Blocks of board category

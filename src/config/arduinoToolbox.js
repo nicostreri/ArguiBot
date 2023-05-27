@@ -63,7 +63,7 @@ export default {
                     "FROM": {block: { type: "math_number", fields: {"NUM": 1}}},
                     "TO":   {block: { type: "math_number", fields: {"NUM": 10}}}
                 }},
-                //TODO map() arduino function
+                { kind: "block", type: "math_ardu_map"}
             ]
         },
         {
