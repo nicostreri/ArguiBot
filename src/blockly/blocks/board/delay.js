@@ -1,17 +1,27 @@
 import {Block, common} from "blockly";
 import arduinoGenerator from "../../generators/arduino";
 
-const blockName = "controls_millis";
+const blockName = "board_delay";
 
 /** 
  * JSON block definition
 */
 const jsonDefinition = {
-    "type": "controls_millis",
-    "message0": "Tiempo desde el arranque (milisegundos)",
-    "output": "Number",
+    "type": blockName,
+    "message0": "Esperar por  %1 milisegundos",
+    "args0": [
+        {
+            "type": "field_number",
+            "name": "TIME",
+            "value": 1000,
+            "min": 1,
+            "precision": 1
+        }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
     "colour": 230,
-    "tooltip": "Obtiene la cantidad de milisegundos que transcurrieron desde el encendido de la placa Arduino.",
+    "tooltip": "Detiene el programa temporalmente",
     "helpUrl": ""
 };
 
@@ -21,8 +31,8 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    let code = "millis()";
-    return [code, arduinoGenerator.ORDER_ATOMIC];
+    let delayTime = block.getFieldValue("TIME");
+    return `delay(${delayTime});\n`;
 };
 
 // Block registration
