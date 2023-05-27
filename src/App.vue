@@ -125,7 +125,6 @@
   }
 
   .code-view {
-    float: right; 
     width: 34%; 
     height: 100%;
     margin: 0; 
