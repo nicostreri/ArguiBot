@@ -73,6 +73,7 @@ export default {
             contents: [
                 { kind: "block", type: "board_delay"},
                 { kind: "block", type: "board_millis"},
+                { kind: "block", type: "board_digital_write"}
             ]
         },
         
