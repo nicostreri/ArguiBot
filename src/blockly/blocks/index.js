@@ -30,3 +30,4 @@ import './math/math_ardu_map';
  */
 import './board/delay';
 import './board/millis';
+import './board/setup_loop';

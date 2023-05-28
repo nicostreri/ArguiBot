@@ -20,8 +20,9 @@ const blocklyToolbox = ref();
 const blocklyDiv = ref();
 const workspace = shallowRef();
 const svgResize = shallowRef();
+const serialization = shallowRef();
 
-defineExpose({ workspace, svgResize });
+defineExpose({ workspace, svgResize, serialization });
 
 onMounted(() => {
   const options = props.options || {};
@@ -30,6 +31,8 @@ onMounted(() => {
   }
   workspace.value = Blockly.inject(blocklyDiv.value, options);
   svgResize.value = Blockly.svgResize;
+  serialization.value = Blockly.serialization;
+  workspace.value.addChangeListener(Blockly.Events.disableOrphans);
 });
 </script>
 

@@ -42,6 +42,8 @@
     mounted() {
       invoke('close_splashscreen');
       this.$refs.foo.workspace.addChangeListener(this.handleWorkspaceChange);
+      this.$refs.foo.serialization.workspaces.load({blocks: {blocks: [{'type': 'board_setup_loop'}]}}, this.$refs.foo.workspace);
+
     },
     components: {
       NavBar,
