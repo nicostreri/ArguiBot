@@ -17,7 +17,7 @@ const jsonDefinition = {
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": 230,
+    "style": "board_blocks",
     "tooltip": "Permite cambiar el estado actual de un PIN digital del controlador.",
     "helpUrl": "",
     "extensions": ["add_digital_pin_extension"]
