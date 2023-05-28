@@ -40,6 +40,17 @@
       "dialog": {
         "all": false,
         "message": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
       }
     },
     "bundle": {
@@ -85,8 +96,11 @@
         "title": "RoboticaSTDesktopApp",
         "width": 800,
         "height": 600,
-        "visible": false,
-        "center": true
+        "visible": true,
+        "center": true,
+        "minWidth": 840,
+        "minHeight": 500,
+        "decorations": false
       },
       {
         "width": 400,

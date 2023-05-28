@@ -1,27 +1,7 @@
 <template>
   <t-layout class="layout">
     <t-header>
-      <t-head-menu class="menu" theme="light" value="item1" expand-type="popup">
-        <template #logo>
-          <img height="28" src="icon.png" alt="logo" />
-        </template>
-        <t-submenu title="Editor">
-          <template #icon>
-            <t-icon name="edit-1"/>
-          </template>
-          <t-menu-item :onClick="handleUndo"> Deshacer último cambio</t-menu-item>
-          <t-menu-item :onClick="handleRedo"> Rehacer último cambio</t-menu-item>
-          <t-menu-item :onClick="handleToggleCode"> Ver/Ocultar código generado </t-menu-item>
-        </t-submenu>
-        <t-menu-item value="item2"> Option 1 </t-menu-item>
-        <t-menu-item value="item3"> Option 2 </t-menu-item>
-        <template #operations>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollback" :onClick="handleUndo"/></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="rollfront" :onClick="handleRedo" /></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="save" :onClick="handleSave"/></a>
-          <server-status></server-status>
-        </template>
-      </t-head-menu>
+      <NavBar @onSelect="handleMenu"></NavBar>
     </t-header>
     <t-content class="content">
       <BlocklyComponent class="blockly-editor" :class="{'blockly-fullscreen': !toggleCode}" :options="options" ref="foo"></BlocklyComponent>
@@ -31,9 +11,9 @@
 </template>
 
 <script>
-  //Components
+  //UI components
+  import NavBar from "./components/NavBar.vue";
   import BlocklyComponent from "./components/BlocklyComponent.vue";
-  import ServerStatus from "./components/ServerStatus.vue";
   import { PrismEditor } from 'vue-prism-editor';
   import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
   import { highlight, languages } from 'prismjs/components/prism-core';
@@ -64,9 +44,9 @@
       this.$refs.foo.workspace.addChangeListener(this.handleWorkspaceChange);
     },
     components: {
+      NavBar,
       BlocklyComponent,
-      PrismEditor,
-      ServerStatus
+      PrismEditor
     },
     methods: {
       highlighter(code) {
@@ -90,6 +70,15 @@
       },
       handleSave(){
         alert("TODO: Implementar guardado remoto en servidor");
+      },
+      handleMenu(event){
+        switch(event){
+          case "file:save": this.handleSave(); break;
+          case "editor:undo": this.handleUndo(); break;
+          case "editor:redo": this.handleRedo(); break;
+          case "editor:toggleCode": this.handleToggleCode(); break;
+          default: throw "Missing handler for " + event;
+        }
       }
     }
   }
@@ -100,10 +89,6 @@
     width: 100%;
     min-height: 100%; 
     position: absolute; 
-  }
-
-  .menu {
-    padding-left: 15px;
   }
 
   .content {
@@ -132,4 +117,5 @@
     overflow: auto;
   }
 
+  
 </style>

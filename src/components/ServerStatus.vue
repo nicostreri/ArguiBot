@@ -7,7 +7,7 @@
     show-arrow
     :delay=2000
   >
-    <a href="javascript:;"><t-icon :class="{'server-icon-online': status, 'server-icon-offline': !status}" name="server"/></a>
+    <a href="javascript:;" :class="$attrs.class"><t-icon :class="{'server-icon-online': status, 'server-icon-offline': !status}" name="server"/></a>
   </t-tooltip>
 </template>
 
