@@ -33,3 +33,4 @@ import './board/millis';
 import './board/setup_loop';
 import './board/add_digital_pin_extension';
 import './board/digital_write';
+import './board/digital_read';
