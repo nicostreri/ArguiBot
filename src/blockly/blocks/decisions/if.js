@@ -1,5 +1,5 @@
 import {Block, common} from "blockly";
-import arduinoGenerator from "../../generators/arduino";
+import arduinoGenerator from "../../generators/arduino/arduino";
 
 const blockName = "controls_if";
 const blockName2 = "controls_ifelse";

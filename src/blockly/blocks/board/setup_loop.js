@@ -1,5 +1,5 @@
 import {Block, common, Blocks} from "blockly";
-import arduinoGenerator from "../../generators/arduino";
+import arduinoGenerator from "../../generators/arduino/arduino";
 
 const blockName = "board_setup_loop";
 

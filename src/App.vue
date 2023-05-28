@@ -28,7 +28,7 @@
 
   //Others
   import blocklyOptions from "./config/blocklyOptions";
-  import arduinoGenerator from "./blockly/generators/arduino";
+  import arduinoGenerator from "./blockly/generators/arduino/arduino";
   import './blockly/blocks';
   
   export default {

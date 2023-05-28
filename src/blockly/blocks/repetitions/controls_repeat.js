@@ -1,5 +1,5 @@
 import {Block, common, Names} from "blockly";
-import arduinoGenerator from "../../generators/arduino";
+import arduinoGenerator from "../../generators/arduino/arduino";
 
 const blockName = "controls_repeat";
 
