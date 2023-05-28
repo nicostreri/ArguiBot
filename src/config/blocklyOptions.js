@@ -5,13 +5,15 @@ const COLOURS = {
   lightBlue: "#4c97ff",
   lightGreen: "#5ba55b",
   violet: "#5b67a5",
-  orange: "#ffab19"
+  orange: "#b6780b",
+  dark: "#252526",
+  white: "#ffffff"
 }
 
 export default {
     media: "media/",
     grid: {
-      spacing: 25,
+      spacing: 40,
       length: 3,
       colour: "#ccc",
       snap: true,
@@ -34,6 +36,10 @@ export default {
         repetitions_category: { colour: COLOURS.lightGreen },
         math_category: { colour: COLOURS.violet },
         board_category: { colour: COLOURS.orange }
+      },
+      componentStyles: {
+        toolboxBackgroundColour: COLOURS.dark,
+        toolboxForegroundColour: COLOURS.white
       }
     })
   };

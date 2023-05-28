@@ -21,7 +21,7 @@
   import 'prismjs/components/prism-c';
   import 'prismjs/components/prism-cpp';
   import 'prismjs/components/prism-arduino';
-  import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
+  import 'prismjs/themes/prism-okaidia.css'; // import syntax highlighting styles
 
   //Tauri APIs
   import { invoke } from "@tauri-apps/api";
@@ -113,7 +113,8 @@
     width: 34%; 
     height: 100%;
     margin: 0; 
-    background-color: #F0F0F0;
+    background-color: #252526;
+    color: #fff;
     overflow: auto;
   }
 
