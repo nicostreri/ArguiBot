@@ -31,6 +31,6 @@ import './math/math_ardu_map';
 import './board/delay';
 import './board/millis';
 import './board/setup_loop';
-import './board/add_digital_pin_extension';
+import './board/insert_pin_fields_extension';
 import './board/digital_write';
 import './board/digital_read';

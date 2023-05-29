@@ -8,19 +8,18 @@ const blockName = "board_digital_write";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Cambiar al estado %1 el",
-    "args0": [{
-        "type": "field_dropdown",
-        "name": "STATUS",
-        "options": [["Alto","HIGH"], ["Bajo","LOW"]]
-    }],
+    "message0": "Cambiar el %1 al estado %2",
+    "args0": [
+        { "type": "input_dummy", "name": "PD_0"},
+        { "type": "field_dropdown", "name": "STATUS", "options": [["Alto","HIGH"], ["Bajo","LOW"]] },
+    ],
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
     "style": "board_blocks",
     "tooltip": "Permite cambiar el estado actual de un PIN digital del controlador.",
     "helpUrl": "",
-    "extensions": ["add_digital_pin_extension"]
+    "extensions": ["insert_pin_fields_extension"]
 }
 
 /**
@@ -30,7 +29,7 @@ const jsonDefinition = {
  */
 const blockToArduino = function (block) {
     const pinStatus = block.getFieldValue("STATUS");
-    const pin = block.getFieldValue("DIGITALPIN");
+    const pin = block.getFieldValue("DIGITALPIN_0");
 
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.OUTPUT, "digitalWrite");
     arduinoGenerator.addSetup('pin_mode_' + pin, `pinMode(${pin}, OUTPUT);`, false);

@@ -8,15 +8,16 @@ const blockName = "board_digital_read";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Leer el estado del",
+    "message0": "Leer el estado del %1",
+    "args0":[
+        {"type": "input_dummy", "name": "PD_0"}
+    ],
     "inputsInline": true,
     "output": "Boolean",
-    "previousStatement": null,
-    "nextStatement": null,
     "style": "board_blocks",
     "tooltip": "Lee el estado actual de un PIN digital del controlador.",
     "helpUrl": "",
-    "extensions": ["add_digital_pin_extension"]
+    "extensions": ["insert_pin_fields_extension"]
 }
 
 /**
@@ -25,7 +26,7 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    const pin = block.getFieldValue("DIGITALPIN");
+    const pin = block.getFieldValue("DIGITALPIN_0");
 
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.INPUT, "digitalRead");
     arduinoGenerator.addSetup('pin_mode_' + pin, `pinMode(${pin}, INPUT);`, false);

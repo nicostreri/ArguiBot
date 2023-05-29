@@ -54,7 +54,8 @@
       highlighter(code) {
         return highlight(code, languages.arduino);
       },
-      handleWorkspaceChange(){
+      handleWorkspaceChange(event){
+        if(event.isUiEvent) return;
         const generatedCode = arduinoGenerator.workspaceToCode(this.$refs.foo.workspace);
         this.codeText = generatedCode;
       },
