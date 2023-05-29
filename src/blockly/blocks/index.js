@@ -34,3 +34,4 @@ import './board/setup_loop';
 import './board/insert_pin_fields_extension';
 import './board/digital_write';
 import './board/digital_read';
+import './board/analog_write';
