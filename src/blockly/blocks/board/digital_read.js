@@ -8,7 +8,7 @@ const blockName = "board_digital_read";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Leer el estado del %1",
+    "message0": "Estado actual del %1",
     "args0":[
         {"type": "input_dummy", "name": "PD_0"}
     ],
