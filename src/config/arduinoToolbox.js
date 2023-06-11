@@ -81,6 +81,7 @@ export default {
 
                 { kind: "label", text: "Control de PIN analógico"},
                 { kind: "block", type: "board_analog_write"},
+                { kind: "block", type: "board_analog_read"}
             ]
         },
         
