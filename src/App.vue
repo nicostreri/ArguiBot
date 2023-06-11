@@ -116,7 +116,7 @@
     width: 34%; 
     height: 100%;
     margin: 0; 
-    background-color: #252526;
+    background-color: #2e2e2f;
     color: #fff;
     overflow: auto;
   }

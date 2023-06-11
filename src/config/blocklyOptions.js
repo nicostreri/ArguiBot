@@ -6,7 +6,7 @@ const COLOURS = {
   lightGreen: "#5ba55b",
   violet: "#5b67a5",
   orange: "#b6780b",
-  dark: "#252526",
+  dark: "#2e2e2f",
   white: "#ffffff"
 }
 
