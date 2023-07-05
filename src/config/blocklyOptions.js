@@ -7,7 +7,8 @@ const COLOURS = {
   violet: "#5b67a5",
   orange: "#b6780b",
   dark: "#2e2e2f",
-  white: "#ffffff"
+  white: "#ffffff",
+  darkRed: "#871918"
 }
 
 export default {
@@ -30,12 +31,14 @@ export default {
       blockStyles: {
         logic_blocks: { colourPrimary: COLOURS.lightBlue },
         board_blocks: { colourPrimary: COLOURS.orange },
+        display_blocks: { colourPrimary: COLOURS.darkRed },
       },
       categoryStyles: {
         decisions_category: { colour: COLOURS.lightBlue },
         repetitions_category: { colour: COLOURS.lightGreen },
         math_category: { colour: COLOURS.violet },
-        board_category: { colour: COLOURS.orange }
+        board_category: { colour: COLOURS.orange },
+        display_category: { colour: COLOURS.darkRed },
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,

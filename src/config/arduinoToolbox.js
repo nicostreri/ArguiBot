@@ -84,6 +84,16 @@ export default {
                 { kind: "block", type: "board_analog_read"}
             ]
         },
+        {
+            kind: "category",
+            name: "Shield Multifunción",
+            categorystyle: "display_category",
+            contents: [
+                { kind: "label", text: "Pantalla"},
+                { kind: "block", type: "multi_shield_display_clean"},
+                { kind: "block", type: "multi_shield_display_write_int"},
+            ]
+        },
         
     ]
 }

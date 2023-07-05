@@ -62,7 +62,8 @@ arduinoGenerator.PinTypes = {
     STEPPER: 'STEPPER',
     SERIAL: 'SERIAL',
     I2C: 'I2C/TWI',
-    SPI: 'SPI'
+    SPI: 'SPI',
+    CIRCUIT: 'CIRCUIT'
 };
 
 /**
@@ -88,6 +89,11 @@ arduinoGenerator.init = function(workspace) {
     arduinoGenerator.setups_ = Object.create(null);
     // Create a dictionary of pins to check if their use conflicts
     arduinoGenerator.pins_ = Object.create(null);
+    // Create a dictionaties of required libs
+    arduinoGenerator.namedLibs_ = Object.create(null);
+    arduinoGenerator.gitLibs_ = Object.create(null);
+    // Create a dictionary of flags
+    arduinoGenerator.flags_ = Object.create(null);
   
     if(!arduinoGenerator.nameDB_){
         arduinoGenerator.nameDB_ = new Names(arduinoGenerator.RESERVED_WORDS_);
@@ -133,6 +139,10 @@ arduinoGenerator.finish = function(code) {
     let codeFunctions = arduinoGenerator.dictToList_(arduinoGenerator.codeFunctions_);
     let userFunctions = arduinoGenerator.dictToList_(arduinoGenerator.userFunctions_);    
     let functions = codeFunctions.concat(userFunctions);
+    let namedLibs = arduinoGenerator.dictToList_(arduinoGenerator.namedLibs_);
+    let gitLibs = arduinoGenerator.dictToList_(arduinoGenerator.gitLibs_);
+    let libs = {namedLibs, gitLibs};
+
       
     // userSetupCode added at the end of the setup function without leading spaces
     let userSetupCode = '';
@@ -151,24 +161,75 @@ arduinoGenerator.finish = function(code) {
     delete arduinoGenerator.functionNames_;
     delete arduinoGenerator.setups_;
     delete arduinoGenerator.pins_;
+    delete arduinoGenerator.namedLibs_;
+    delete arduinoGenerator.gitLibs_;
+    delete arduinoGenerator.flags_;
     arduinoGenerator.nameDB_.reset();
   
     let allDefs = includes.join('\n') + variables.join('\n') +
         definitions.join('\n') + functions.join('\n\n');
     let setup = 'void setup() {\n  ' + setups.join('\n  ') + '\n}\n\n';
-    let loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
-    return allDefs + setup + loop;
+    let loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}\n';
+    return allDefs + setup + loop + "// "+JSON.stringify(libs);
 };
-  
+
+/**
+ * Check if a string is a valid URL
+ * @param {string} string Text to check
+ * @returns {!boolean} Indicates if the string is a valid URL
+ */
+arduinoGenerator.isURL_ = (string) => {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;  
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
+/**
+ * Add a temporary flag that allows a value to be stored during code generation
+ * @param {string} flag Identifier for this flag
+ * @param {object} value Value for this flag
+ */
+arduinoGenerator.addFlag = function(flag, value){
+    if(arduinoGenerator.flags_[flag] === undefined){
+        arduinoGenerator.flags_[flag] = value;
+    }
+}
+
+/**
+ * Read a previously added temporary flag
+ * @param {string} flag Flag identifier to look for
+ * @returns {object} Current value or undefined if it does not exist
+ */
+arduinoGenerator.getFlag = function(flag){
+    if(arduinoGenerator.flags_[flag] !== undefined){
+        return arduinoGenerator.flags_[flag];
+    }else{
+        return undefined;
+    }
+}
+
 /**
  * Adds a string of "include" code to be added to the sketch.
  * Once a include is added it will not get overwritten with new code.
  * @param {!string} includeTag Identifier for this include code.
  * @param {!string} code Code to be included at the very top of the sketch.
+ * @param {!string} requiredLib name or download URL of the library that includes the header
  */
-arduinoGenerator.addInclude = function(includeTag, code) {
+arduinoGenerator.addInclude = function(includeTag, code, requiredLib = "") {
     if(arduinoGenerator.includes_[includeTag] === undefined) {
         arduinoGenerator.includes_[includeTag] = code;
+
+        if(requiredLib){
+            if(arduinoGenerator.isURL_(requiredLib)){
+                arduinoGenerator.gitLibs_[includeTag] = requiredLib;
+            }else{
+                arduinoGenerator.namedLibs_[includeTag] = requiredLib;
+            }
+        }
     }
 };
   
