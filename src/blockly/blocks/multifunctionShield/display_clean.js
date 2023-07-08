@@ -13,7 +13,7 @@ const jsonDefinition = {
     "previousStatement": null,
     "nextStatement": null,
     "style": "multi_shield_blocks",
-    "tooltip": "",
+    "tooltip": "Eliminar todo el contenido mostrado en la pantalla y la apaga.",
     "helpUrl": ""
 };
 

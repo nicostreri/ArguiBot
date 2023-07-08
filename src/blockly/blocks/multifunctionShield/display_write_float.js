@@ -20,7 +20,7 @@ const jsonDefinition = {
     "previousStatement": null,
     "nextStatement": null,
     "style": "multi_shield_blocks",
-    "tooltip": "",
+    "tooltip": "Muestra un número decimal en la pantalla. Solo puede mostrar números entre 0 y 999, debido al tamaño de la pantalla.",
     "helpUrl": ""
 };
 
