@@ -19,7 +19,7 @@ const jsonDefinition = {
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "style": "display_blocks",
+    "style": "multi_shield_blocks",
     "tooltip": "",
     "helpUrl": ""
 };

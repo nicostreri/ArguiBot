@@ -31,14 +31,14 @@ export default {
       blockStyles: {
         logic_blocks: { colourPrimary: COLOURS.lightBlue },
         board_blocks: { colourPrimary: COLOURS.orange },
-        display_blocks: { colourPrimary: COLOURS.darkRed },
+        multi_shield_blocks: { colourPrimary: COLOURS.darkRed },
       },
       categoryStyles: {
         decisions_category: { colour: COLOURS.lightBlue },
         repetitions_category: { colour: COLOURS.lightGreen },
         math_category: { colour: COLOURS.violet },
         board_category: { colour: COLOURS.orange },
-        display_category: { colour: COLOURS.darkRed },
+        multi_shield_category: { colour: COLOURS.darkRed },
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,

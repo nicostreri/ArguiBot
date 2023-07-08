@@ -87,7 +87,7 @@ export default {
         {
             kind: "category",
             name: "Shield Multifunción",
-            categorystyle: "display_category",
+            categorystyle: "multi_shield_category",
             contents: [
                 { kind: "label", text: "Pantalla"},
                 { kind: "block", type: "multi_shield_display_clean"},

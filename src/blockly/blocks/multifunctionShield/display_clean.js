@@ -12,7 +12,7 @@ const jsonDefinition = {
     "message0": "Borrar contenido de la pantalla",
     "previousStatement": null,
     "nextStatement": null,
-    "style": "display_blocks",
+    "style": "multi_shield_blocks",
     "tooltip": "",
     "helpUrl": ""
 };
