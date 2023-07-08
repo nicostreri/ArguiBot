@@ -94,7 +94,8 @@ export default {
                 { kind: "block", type: "multi_shield_display_write_int"},
                 { kind: "block", type: "multi_shield_display_write_float"},
                 { kind: "label", text: "Otros Sensores y Actuadores"},
-                { kind: "block", type: "multi_shield_change_led_status"}
+                { kind: "block", type: "multi_shield_change_led_status"},
+                { kind: "block", type: "multi_shield_get_button_status"}
             ]
         },
         
