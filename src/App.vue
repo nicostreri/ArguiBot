@@ -2,6 +2,7 @@
   <t-layout class="layout">
     <t-header>
       <NavBar @onSelect="handleMenu"></NavBar>
+      <WindowButtons></WindowButtons>
     </t-header>
     <t-content class="content">
       <BlocklyComponent class="blockly-editor" :class="{'blockly-fullscreen': !toggleCode}" :options="options" ref="foo"></BlocklyComponent>
@@ -12,7 +13,8 @@
 
 <script>
   //UI components
-  import NavBar from "./components/NavBar.vue";
+  import WindowButtons from "./components/WindowButtons.vue";
+  import NavBar from "./components/navbar/NavBar.vue";
   import BlocklyComponent from "./components/BlocklyComponent.vue";
   import { PrismEditor } from 'vue-prism-editor';
   import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
@@ -48,7 +50,8 @@
     components: {
       NavBar,
       BlocklyComponent,
-      PrismEditor
+      PrismEditor,
+      WindowButtons
     },
     methods: {
       highlighter(code) {
