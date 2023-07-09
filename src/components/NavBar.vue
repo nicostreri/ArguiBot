@@ -1,6 +1,6 @@
 <template>
     <div data-tauri-drag-region class="titlebar"></div>
-      <t-head-menu class="menu" theme="dark" value="item1" expand-type="popup">
+      <t-head-menu class="menu" value="item1" expand-type="popup">
         <template #logo>
           <img height="28" src="icon.png" alt="logo"/>
         </template>
@@ -17,6 +17,7 @@
           <t-menu-item :onClick="()=>{$emit('onSelect', 'editor:undo')}">Deshacer último cambio</t-menu-item>
           <t-menu-item :onClick="()=>{$emit('onSelect', 'editor:redo')}">Rehacer último cambio</t-menu-item>
           <t-menu-item :onClick="()=>{$emit('onSelect', 'editor:toggleCode')}">Ver/Ocultar código generado </t-menu-item>
+          <t-menu-item :onClick="()=>{$emit('onSelect', 'editor:toggleTheme')}">Alternar apariencia visual</t-menu-item>
         </t-submenu>
         <t-menu-item value="item2" class="over-bar">Programación</t-menu-item>
         <template #operations>

@@ -21,7 +21,7 @@
   import 'prismjs/components/prism-c';
   import 'prismjs/components/prism-cpp';
   import 'prismjs/components/prism-arduino';
-  import 'prismjs/themes/prism-okaidia.css'; // import syntax highlighting styles
+  import 'prismjs/themes/prism-solarizedlight.css';
 
   //Tauri APIs
   import { invoke } from "@tauri-apps/api";
@@ -71,6 +71,14 @@
           this.$refs.foo.svgResize(this.$refs.foo.workspace);
         }, 50);
       },
+      handleToggleTheme(){
+        this.toggleTheme = !this.toggleTheme;
+        if(this.toggleTheme){
+          document.documentElement.setAttribute('theme-mode', 'dark');
+        }else{
+          document.documentElement.removeAttribute('theme-mode');
+        }
+      },
       handleSave(){
         alert("TODO: Implementar guardado remoto en servidor");
       },
@@ -80,6 +88,7 @@
           case "editor:undo": this.handleUndo(); break;
           case "editor:redo": this.handleRedo(); break;
           case "editor:toggleCode": this.handleToggleCode(); break;
+          case "editor:toggleTheme": this.handleToggleTheme(); break;
           default: throw "Missing handler for " + event;
         }
       }
@@ -116,10 +125,6 @@
     width: 34%; 
     height: 100%;
     margin: 0; 
-    background-color: #2e2e2f;
-    color: #fff;
     overflow: auto;
   }
-
-  
 </style>
