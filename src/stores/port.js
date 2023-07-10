@@ -1,6 +1,8 @@
 import { defineStore } from "pinia"
 import { ref, computed } from "vue";
 
+import {getAvailablePorts} from "./../helpers/arduinoCLIService";
+
 export const usePortStore = defineStore('port', () => {
     //Properties
     const currentSelectedPort= ref(undefined);
@@ -12,7 +14,13 @@ export const usePortStore = defineStore('port', () => {
   
     //Actions
     function updateList() {
-        availablePorts.value = [{key:"Demo", name:"Puerto Demo"}];
+        loading.value = true;
+        getAvailablePorts().then(ports => {
+            availablePorts.value = ports;
+            currentSelectedPort.value = undefined;
+        }).finally(()=>{
+            loading.value = false;
+        });
     }
   
     return {currentSelectedPort, loading, connectedPorts, updateList};
