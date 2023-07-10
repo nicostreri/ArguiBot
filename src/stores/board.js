@@ -17,6 +17,7 @@ export const useBoardStore = defineStore('board', () => {
         loading.value = true;
         getInstalledBoards().then(boards=>{
             availableBoards.value = boards;
+            currentSelectedBoard.value = undefined;
         }).finally(()=>{
             loading.value = false;
         });
