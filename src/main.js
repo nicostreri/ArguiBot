@@ -1,19 +1,30 @@
-import { createApp } from "vue";
-import "./styles.css";
-import App from "./App.vue";
-import TDesign from 'tdesign-vue-next';
+// Store init
 import { createPinia } from "pinia";
-
-import 'tdesign-vue-next/es/style/index.css';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+// Styles init
+import "./styles.css";
+import TDesign from 'tdesign-vue-next';
+import 'tdesign-vue-next/es/style/index.css';
+
+// Start Blockly
+import * as Blockly from "blockly";
+import './blockly/blocks/index';
+import * as spanishLang from "blockly/msg/es";
+Blockly.setLocale(spanishLang);
+
+// Start App
+import { createApp } from "vue";
+import App from "./App.vue";
+
 const app = createApp(App);
 app.use(pinia);
 app.use(TDesign);
 app.mount("#app");
 
-//Initialize Arduino information 
-import { useBoardStore } from "./stores/board";
-import { usePortStore } from "./stores/port";
-useBoardStore().updateList();
-usePortStore().updateList();
+// Finish start
+import {useAppStore} from "./stores/app";
+useAppStore().startApp();

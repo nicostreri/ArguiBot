@@ -1,55 +1,70 @@
 <script setup>
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Blockly Vue Component.
- * @author dcoodien@gmail.com (Dylan Coodien)
- */
-
 import { onMounted, ref, shallowRef } from "vue";
 import * as Blockly from "blockly";
-import * as Es from "blockly/msg/es";
-Blockly.setLocale(Es);
 
-const props = defineProps(["options"]);
+// Internal state
 const blocklyToolbox = ref();
 const blocklyDiv = ref();
 const workspace = shallowRef();
-const svgResize = shallowRef();
-const serialization = shallowRef();
 
-defineExpose({ workspace, svgResize, serialization });
+// Component API
+const props = defineProps(["options"]);
+const emit = defineEmits(['change']);
 
-onMounted(() => {
+// Methods
+const getBlocklyOptions = () => {
   const options = props.options || {};
   if (!options.toolbox) {
     options.toolbox = blocklyToolbox.value;
   }
-  workspace.value = Blockly.inject(blocklyDiv.value, options);
-  svgResize.value = Blockly.svgResize;
-  serialization.value = Blockly.serialization;
-  workspace.value.addChangeListener(Blockly.Events.disableOrphans);
+  return options;
+};
+
+const handleWorkspaceChange = (event) => {
+  if(event.isUiEvent) return;
+  emit("change", workspace.value);
+};
+
+const undo = () => {
+  workspace.value.undo();
+};
+
+const redo = () => {
+  workspace.value.undo(true);
+};
+
+const updateView = () => {
+  setTimeout(() => {
+    Blockly.svgResize(workspace.value);
+  }, 50);
+};
+
+onMounted(() => {
+  const wrkspace = Blockly.inject(blocklyDiv.value, getBlocklyOptions());
+  wrkspace.addChangeListener(Blockly.Events.disableOrphans);
+  wrkspace.addChangeListener(handleWorkspaceChange);
+  Blockly.serialization.workspaces.load(
+    {blocks: {blocks: [{'type': 'board_setup_loop'}]}},
+    wrkspace
+  );
+
+  workspace.value = wrkspace;
 });
+
+defineExpose({undo, redo, updateView});
 </script>
 
 <template>
   <div>
-    <div class="blocklyDiv" ref="blocklyDiv"></div>
-    <xml ref="blocklyToolbox" style="display: none">
-      <slot></slot>
-    </xml>
+    <div ref="blocklyDiv" class="blocklyDiv" ></div>
+    <xml ref="blocklyToolbox" style="display: none"><slot></slot></xml>
   </div>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.blocklyDiv {
-  height: 100%;
-  width: 100%;
-  text-align: left;
-}
+  .blocklyDiv {
+    height: 100%;
+    width: 100%;
+    text-align: left;
+  }
 </style>

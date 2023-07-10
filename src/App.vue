@@ -1,3 +1,74 @@
+<script setup>
+  import { onMounted, ref } from "vue";
+  import E from "./components/navbar/NavEvents";
+
+  //Stores
+  import { useAppStore } from "./stores/app";
+  import { usePortStore } from "./stores/port";
+
+  const app = useAppStore();
+  const ports = usePortStore();
+
+  //UI components
+  import WindowButtons from "./components/WindowButtons.vue";
+  import NavBar from "./components/navbar/NavBar.vue";
+  import BlocklyComponent from "./components/BlocklyComponent.vue";
+  import CodeViewer from "./components/CodeViewer.vue";
+
+  //Blockly configuration
+  import blocklyOptions from "./config/blocklyOptions";
+  import arduinoGenerator from "./blockly/generators/arduino/arduino";
+  import { changeBoard } from "./blockly/generators/arduino/boards";
+
+  //Internal state
+  const showCode = ref(true);
+  const arduinoCode = ref("");
+  const blockly = ref();
+  
+  //Methods
+  const handleBlocklyChange = (workspace) => {
+    console.log("Change");
+    const generatedCode = arduinoGenerator.workspaceToCode(workspace);
+
+    //TODO Mapear con la opcion elegida por el ussuario actualmente en la barra de navegacion
+    changeBoard(workspace, "uno");
+    arduinoCode.value = generatedCode;
+  }
+
+  const handleSave = () => {
+    alert("TODO: Implementar guardado remoto en servidor");
+  };
+
+  const handleUndoRedo = (isUndo) => {
+    if(isUndo){
+      blockly.value.undo();
+    }else{
+      blockly.value.redo();
+    }
+  }
+
+  const handleToggleCode = () => {
+    showCode.value = !showCode.value;
+    blockly.value.updateView();     
+  };
+
+  const handleMenu = (event) => {
+    switch(event){
+      case E.SAVE_EVENT: handleSave(); break;
+      case E.UNDO_EVENT: handleUndoRedo(true); break;
+      case E.REDO_EVENT: handleUndoRedo(false); break;
+      case E.TCODE_EVENT: handleToggleCode(); break;
+      case E.TTHEME_EVENT: app.toggleTheme(); break;
+      case E.SEARCH_PORT_EVENT: ports.updateList(); break;
+      default: throw "Missing handler for " + event;
+    }
+  }
+
+  onMounted(()=>{
+    app.onStartVue();
+  });
+</script>
+
 <template>
   <t-layout class="layout">
     <t-header>
@@ -5,99 +76,17 @@
       <WindowButtons></WindowButtons>
     </t-header>
     <t-content class="content">
-      <BlocklyComponent class="blockly-editor" :class="{'blockly-fullscreen': !toggleCode}" :options="options" ref="foo"></BlocklyComponent>
-      <prism-editor v-if="toggleCode" class="code-view" v-model="codeText" :highlight="highlighter" line-numbers :readonly=true></prism-editor>
+      <BlocklyComponent 
+        class="blockly-editor" 
+        :class="{'blockly-fullscreen': !showCode}" 
+        :options="blocklyOptions" 
+        ref="blockly"
+        @change="handleBlocklyChange">
+      </BlocklyComponent>
+      <CodeViewer v-if="showCode" class="code-view" v-model="arduinoCode"></CodeViewer>
     </t-content>
   </t-layout>
 </template>
-
-<script>
-  //UI components
-  import WindowButtons from "./components/WindowButtons.vue";
-  import NavBar from "./components/navbar/NavBar.vue";
-  import BlocklyComponent from "./components/BlocklyComponent.vue";
-  import { PrismEditor } from 'vue-prism-editor';
-  import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
-  import { highlight, languages } from 'prismjs/components/prism-core';
-  import 'prismjs/components/prism-clike';
-  import 'prismjs/components/prism-c';
-  import 'prismjs/components/prism-cpp';
-  import 'prismjs/components/prism-arduino';
-  import 'prismjs/themes/prism-solarizedlight.css';
-
-  //Tauri APIs
-  import { invoke } from "@tauri-apps/api";
-
-  //Others
-  import blocklyOptions from "./config/blocklyOptions";
-  import arduinoGenerator from "./blockly/generators/arduino/arduino";
-  import './blockly/blocks';
-  
-  export default {
-    data() {
-      return {
-        codeText: "",
-        options: blocklyOptions,
-        toggleCode: true
-      }
-    },
-    mounted() {
-      invoke('close_splashscreen');
-      this.$refs.foo.workspace.addChangeListener(this.handleWorkspaceChange);
-      this.$refs.foo.serialization.workspaces.load({blocks: {blocks: [{'type': 'board_setup_loop'}]}}, this.$refs.foo.workspace);
-
-    },
-    components: {
-      NavBar,
-      BlocklyComponent,
-      PrismEditor,
-      WindowButtons
-    },
-    methods: {
-      highlighter(code) {
-        return highlight(code, languages.arduino);
-      },
-      handleWorkspaceChange(event){
-        if(event.isUiEvent) return;
-        const generatedCode = arduinoGenerator.workspaceToCode(this.$refs.foo.workspace);
-        this.codeText = generatedCode;
-      },
-      handleUndo(){
-        this.$refs.foo.workspace.undo();
-      },
-      handleRedo(){
-        this.$refs.foo.workspace.undo(true);
-      },
-      handleToggleCode(){
-        this.toggleCode = !this.toggleCode;
-        setTimeout(() => {
-          this.$refs.foo.svgResize(this.$refs.foo.workspace);
-        }, 50);
-      },
-      handleToggleTheme(){
-        this.toggleTheme = !this.toggleTheme;
-        if(this.toggleTheme){
-          document.documentElement.setAttribute('theme-mode', 'dark');
-        }else{
-          document.documentElement.removeAttribute('theme-mode');
-        }
-      },
-      handleSave(){
-        alert("TODO: Implementar guardado remoto en servidor");
-      },
-      handleMenu(event){
-        switch(event){
-          case "file:save": this.handleSave(); break;
-          case "editor:undo": this.handleUndo(); break;
-          case "editor:redo": this.handleRedo(); break;
-          case "editor:toggleCode": this.handleToggleCode(); break;
-          case "editor:toggleTheme": this.handleToggleTheme(); break;
-          default: throw "Missing handler for " + event;
-        }
-      }
-    }
-  }
-</script>
 
 <style scoped>
   .layout {

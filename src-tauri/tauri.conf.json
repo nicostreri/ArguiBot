@@ -94,12 +94,12 @@
         "fullscreen": false,
         "resizable": true,
         "title": "RoboticaSTDesktopApp",
-        "width": 800,
-        "height": 600,
+        "width": 950,
+        "height": 620,
         "visible": true,
         "center": true,
-        "minWidth": 840,
-        "minHeight": 500,
+        "minWidth": 950,
+        "minHeight": 620,
         "decorations": false
       },
       {

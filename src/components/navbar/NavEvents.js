@@ -9,6 +9,6 @@ export default {
     SAVE_EVENT: 'file:save',
 
     //Programming
-    SEARCH_PORT_EVENT: 'prog:findPort',
+    SEARCH_PORT_EVENT: 'prog:searchPort',
     COMPILE_UPLOAD_EVENT: 'prog:compileUpload'
 };
