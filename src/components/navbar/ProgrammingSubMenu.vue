@@ -4,6 +4,8 @@
   //Store
   import {useBoardStore} from "./../../stores/board";
   import {usePortStore} from "./../../stores/port";
+  import { useProjectStore } from '../../stores/project';
+  const project = useProjectStore();
   const board = useBoardStore();
   const port = usePortStore();
 
@@ -38,6 +40,6 @@
     
     <Divider/>
     <t-menu-item :onClick="()=>{e(E.SEARCH_PORT_EVENT)}">Buscar puertos disponibles</t-menu-item>
-    <t-menu-item :onClick="()=>{e(E.COMPILE_UPLOAD_EVENT)}">Compilar y Subir</t-menu-item>
+    <t-menu-item :disabled="!project.allowsRun.value || project.isRunning.value" :onClick="()=>{e(E.COMPILE_UPLOAD_EVENT)}">Compilar y Subir</t-menu-item>
   </t-submenu>
 </template>

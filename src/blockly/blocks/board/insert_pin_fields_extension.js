@@ -1,5 +1,4 @@
 import {Extensions, FieldDropdown} from "blockly";
-import { getSelected } from "../../generators/arduino/boards";
 
 function insertPINs(block, insertionKey, fieldKey, title, pinList){
     let insertedPins = [];
@@ -10,7 +9,8 @@ function insertPINs(block, insertionKey, fieldKey, title, pinList){
         const name = fieldKey + i;
         input.appendField(title)
             .appendField(new FieldDropdown(function() {
-                return getSelected()[pinList];
+                const fieldDropdownData = (block.workspace.currentBoard) ? block.workspace.currentBoard[pinList] : [["1", "1"]];
+                return fieldDropdownData;
             }), name);
         insertedPins.push(name);
     }

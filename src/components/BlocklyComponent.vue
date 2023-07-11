@@ -33,11 +33,12 @@ const redo = () => {
   workspace.value.undo(true);
 };
 
-const updateView = () => {
+const notifyChange = () => {
   setTimeout(() => {
     Blockly.svgResize(workspace.value);
   }, 50);
-};
+  emit("change", workspace.value);
+}
 
 onMounted(() => {
   const wrkspace = Blockly.inject(blocklyDiv.value, getBlocklyOptions());
@@ -51,7 +52,7 @@ onMounted(() => {
   workspace.value = wrkspace;
 });
 
-defineExpose({undo, redo, updateView});
+defineExpose({undo, redo, notifyChange});
 </script>
 
 <template>

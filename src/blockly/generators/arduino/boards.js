@@ -76,7 +76,7 @@ function duplicateBoardProfile(originalBoard, name_, description, compilerFlag) 
 const Profiles = new Object();
 
 /** Arduino Uno board profile. */
-Profiles.uno = {
+Profiles["arduino:avr:uno"] = {
     name: 'Arduino Uno',
     description: 'Arduino Uno standard compatible board',
     compilerFlag: 'arduino:avr:uno',
@@ -114,18 +114,18 @@ Profiles.uno = {
 //   analogPins: Blockly.Arduino.Boards.generateAnalogIo(0, 7),
 //   digitalPins: Blockly.Arduino.Boards.generateDigitalIo(0, 13).concat(
 //                    Blockly.Arduino.Boards.generateAnalogIo(0, 7)),
-//   pwmPins: Blockly.Arduino.Boards.profiles.uno.pwmPins,
-//   serial: Blockly.Arduino.Boards.profiles.uno.serial,
-//   serialPins: Blockly.Arduino.Boards.profiles.uno.serialPins,
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
-//   spi: Blockly.Arduino.Boards.profiles.uno.spi,
-//   spiPins: Blockly.Arduino.Boards.profiles.uno.spiPins,
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
-//   i2c: Blockly.Arduino.Boards.profiles.uno.i2c,
-//   i2cPins: Blockly.Arduino.Boards.profiles.uno.i2cPins,
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
-//   builtinLed: Blockly.Arduino.Boards.profiles.uno.builtinLed,
-//   interrupt: Blockly.Arduino.Boards.profiles.uno.interrupt
+//   pwmPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].pwmPins,
+//   serial: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serial,
+//   serialPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialPins,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialSpeed,
+//   spi: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spi,
+//   spiPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiPins,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
+//   i2c: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2c,
+//   i2cPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cPins,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
+//   builtinLed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].builtinLed,
+//   interrupt: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].interrupt
 // };
 // Blockly.Arduino.Boards.profiles.nano_168 =
 //     Blockly.Arduino.Boards.duplicateBoardProfile(
@@ -139,20 +139,20 @@ Profiles.uno = {
 //   name: 'Arduino Nano 168p',
 //   description: 'Arduino Duemilanove with ATmega168p compatible board',
 //   compilerFlag: 'arduino:avr:diecimila:cpu=atmega168',
-//   analogPins: Blockly.Arduino.Boards.profiles.uno.analogPins,
-//   digitalPins: Blockly.Arduino.Boards.profiles.uno.digitalPins,
-//   pwmPins: Blockly.Arduino.Boards.profiles.uno.pwmPins,
-//   serial: Blockly.Arduino.Boards.profiles.uno.serial,
-//   serialPins: Blockly.Arduino.Boards.profiles.uno.serialPins,
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
-//   spi: Blockly.Arduino.Boards.profiles.uno.spi,
-//   spiPins: Blockly.Arduino.Boards.profiles.uno.spiPins,
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
-//   i2c: Blockly.Arduino.Boards.profiles.uno.i2c,
-//   i2cPins: Blockly.Arduino.Boards.profiles.uno.i2cPins,
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
-//   builtinLed: Blockly.Arduino.Boards.profiles.uno.builtinLed,
-//   interrupt: Blockly.Arduino.Boards.profiles.uno.interrupt
+//   analogPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].analogPins,
+//   digitalPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].digitalPins,
+//   pwmPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].pwmPins,
+//   serial: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serial,
+//   serialPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialPins,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialSpeed,
+//   spi: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spi,
+//   spiPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiPins,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
+//   i2c: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2c,
+//   i2cPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cPins,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
+//   builtinLed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].builtinLed,
+//   interrupt: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].interrupt
 // };
 // Blockly.Arduino.Boards.profiles.duemilanove_328p =
 //     Blockly.Arduino.Boards.duplicateBoardProfile(
@@ -162,7 +162,7 @@ Profiles.uno = {
 //         'arduino:avr:diecimila');
 
 // /** Arduino Mega board profile. */
-Profiles.mega = {
+Profiles["arduino:avr:mega"] = {
   name: 'Arduino Mega',
   description: 'Arduino Mega-compatible board',
   compilerFlag: 'arduino:avr:mega',
@@ -179,15 +179,15 @@ Profiles.mega = {
     Serial2: [['TX', '16'], ['TX', '17']],
     Serial3: [['TX', '14'], ['TX', '15']]
   },
-  serialSpeed: Profiles.uno.serialSpeed,
+  serialSpeed: Profiles["arduino:avr:uno"].serialSpeed,
   spi: [['SPI', 'SPI']],
   spiPins: { SPI: [['MOSI', '51'], ['MISO', '50'], ['SCK', '52']] },
   //TODO: confirm the clock divides are the same for the DUE and UNO
-  spiClockDivide: Profiles.uno.spiClockDivide,
+  spiClockDivide: Profiles["arduino:avr:uno"].spiClockDivide,
   i2c: [['I2C', 'Wire']],
   i2cPins: { Wire: [['SDA', '20'], ['SCL', '21']] },
   i2cSpeed: [['100kHz', '100000L'], ['400kHz', '400000L']],
-  builtinLed: Profiles.uno.builtinLed,
+  builtinLed: Profiles["arduino:avr:uno"].builtinLed,
   interrupt: [['interrupt0', '2'], ['interrupt1', '3'], ['interrupt2', '21'],
               ['interrupt3', '20'], ['interrupt4', '19'], ['interrupt5', '18']]
 };
@@ -202,18 +202,18 @@ Profiles.mega = {
 //                    ['A10', '10'], ['A11', '12']]),
 //   digitalPins: Blockly.Arduino.Boards.generateDigitalIo(0, 13).concat(
 //                    Blockly.Arduino.Boards.generateAnalogIo(0, 5)),
-//   pwmPins: Blockly.Arduino.Boards.profiles.uno.pwmPins.concat([['13', '13']]),
-//   serial: Blockly.Arduino.Boards.profiles.uno.serial,
-//   serialPins: Blockly.Arduino.Boards.profiles.uno.serialPins,
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
+//   pwmPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].pwmPins.concat([['13', '13']]),
+//   serial: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serial,
+//   serialPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialPins,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialSpeed,
 //   spi: [['SPI', 'SPI']],
 //   spiPins: { SPI: [['MOSI', 'ICSP-4'], ['MISO', 'ICSP-1'], ['SCK', 'ICSP-3']] },
 //   //TODO: confirm the clock divides are the same for the Leonardo and UNO
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
 //   i2c: [['I2C', 'Wire']],
 //   i2cPins: { Wire: [['SDA', '2'], ['SCL', '3']] },
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
-//   builtinLed: Blockly.Arduino.Boards.profiles.uno.builtinLed,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
+//   builtinLed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].builtinLed,
 //   interrupt: [['interrupt0', '3'], ['interrupt1', '2'], ['interrupt2', '0'],
 //               ['interrupt3', '1'], ['interrupt4', '17']]
 // };
@@ -230,21 +230,21 @@ Profiles.mega = {
 //   name: 'Atmel atmega328p Xplained mini',
 //   description: 'Atmel Xplained mini board with atmega328p (Uno compatible)',
 //   compilerFlag: 'atmel:avr:atmega328p_xplained_mini',
-//   analogPins: Blockly.Arduino.Boards.profiles.uno.analogPins,
-//   digitalPins: Blockly.Arduino.Boards.profiles.uno.digitalPins.concat(
+//   analogPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].analogPins,
+//   digitalPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].digitalPins.concat(
 //       [['20', '20']]),
-//   pwmPins: Blockly.Arduino.Boards.profiles.uno.pwmPins,
-//   serial: Blockly.Arduino.Boards.profiles.uno.serial,
-//   serialPins: Blockly.Arduino.Boards.profiles.uno.serialPins,
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
-//   spi: Blockly.Arduino.Boards.profiles.uno.spi,
-//   spiPins: Blockly.Arduino.Boards.profiles.uno.spiPins,
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
-//   i2c: Blockly.Arduino.Boards.profiles.uno.i2c,
-//   i2cPins: Blockly.Arduino.Boards.profiles.uno.i2cPins,
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
+//   pwmPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].pwmPins,
+//   serial: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serial,
+//   serialPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialPins,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialSpeed,
+//   spi: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spi,
+//   spiPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiPins,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
+//   i2c: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2c,
+//   i2cPins: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cPins,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
 //   builtinLed: [['BUILTIN_LED', '13']],
-//   interrupt: Blockly.Arduino.Boards.profiles.uno.interrupt,
+//   interrupt: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].interrupt,
 //   builtinButton: [['BUILTIN_BUTTON', '20']]
 // };
 // Blockly.Arduino.Boards.profiles.atmel_atmega328pb_xplained_mini =
@@ -271,13 +271,13 @@ Profiles.mega = {
 //   pwmPins: [['2', '2']],
 //   serial: [['serial', 'Serial']],
 //   serialPins: { Serial: [['RX', 'RX'], ['TX', 'TX']] },
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serial,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serial,
 //   spi: [['SPI', 'SPI']],
 //   spiPins: { SPI: [['MOSI', '13'], ['MISO', '12'], ['SCK', '14']] },
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
 //   i2c: [['I2C', 'Wire']],
 //   i2cPins: { Wire: [['SDA', '4'], ['SCL', '5']] },
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
 //   builtinLed: [['BUILTIN_1', '0']],
 //   interrupt: [['interrupt0', '2'], ['interrupt1', '3']]
 // };
@@ -294,33 +294,32 @@ Profiles.mega = {
 //              ['D5', 'D5'], ['D6', 'D7'], ['D8', 'D8']],
 //   serial: [['serial', 'Serial']],
 //   serialPins: { Serial: [['RX', 'RX'], ['TX', 'TX']] },
-//   serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
+//   serialSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].serialSpeed,
 //   spi: [['SPI', 'SPI']],
 //   spiPins: { SPI: [['MOSI', 'D7'], ['MISO', 'D6'], ['SCK', 'D5']] },
-//   spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
+//   spiClockDivide: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].spiClockDivide,
 //   i2c: [['I2C', 'Wire']],
 //   i2cPins: { Wire: [['SDA', 'D2'], ['SCL', 'D1']] },
-//   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
+//   i2cSpeed: Blockly.Arduino.Boards.Profiles["arduino:avr:uno"].i2cSpeed,
 //   builtinLed: [['BUILTIN_1', 'D4']],
 //   interrupt: [['D0', 'D0'], ['D1', 'D1'], ['D2', 'D2'], ['D3', 'D3'],
 //               ['D4', 'D4'], ['D5', 'D5'], ['D6', 'D7'], ['D8', 'D8']]
 // };
-
-/** Set default profile to Arduino standard-compatible board */
-let selectedBoard = Profiles.uno;
 
 /**
  * Changes the Arduino board profile selected, which trigger a refresh of the
  * blocks that use the profile.
  * @param {Blockly.Workspace} workspace Workspace to trigger the board change.
  * @param {string} newBoard Name of the new profile to set.
+ * @returns {boolean} true if changed successfully
  */
 function changeBoard(workspace, newBoard) {
-    if (Profiles[newBoard] === undefined) {
-        console.log('Tried to set non-existing Arduino board: ' + newBoard);
-        return;
-    }
-    selectedBoard = Profiles[newBoard];
+    if(!newBoard) return false;
+    if(workspace.currentBoard?.compilerFlag == newBoard) return true;
+    
+    if(Profiles[newBoard] === undefined) return false;
+    workspace.currentBoard = Profiles[newBoard];
+
     // Update the pin out of all the blocks that uses them
     const blocks = workspace.getAllBlocks();
     for (let i = 0; i < blocks.length; i++) {
@@ -329,6 +328,7 @@ function changeBoard(workspace, newBoard) {
             updateFields.call(blocks[i]);
         }
     }
+    return true;
 };
 
 /**
@@ -341,7 +341,7 @@ function changeBoard(workspace, newBoard) {
 function refreshBlockFieldDropdown(block, fieldName, boardKey) {
     const field = block.getField(fieldName);
     const fieldValue = field.getValue();
-    const dataArray = selectedBoard[boardKey];
+    const dataArray = block.workspace.currentBoard[boardKey];
     field.menuGenerator_ = dataArray;
 
     let currentValuePresent = false;
@@ -358,12 +358,7 @@ function refreshBlockFieldDropdown(block, fieldName, boardKey) {
     }
 };
 
-function getSelected(){
-    return selectedBoard;
-}
-
 export {
     changeBoard,
-    refreshBlockFieldDropdown,
-    getSelected
+    refreshBlockFieldDropdown
 }

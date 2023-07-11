@@ -1,13 +1,17 @@
 <script setup>
-  import { onMounted, ref } from "vue";
+  import { onMounted, ref, watch } from "vue";
   import E from "./components/navbar/NavEvents";
 
   //Stores
   import { useAppStore } from "./stores/app";
   import { usePortStore } from "./stores/port";
+  import { useProjectStore } from "./stores/project";
+  import { useBoardStore } from "./stores/board";
 
   const app = useAppStore();
   const ports = usePortStore();
+  const project = useProjectStore();
+  const board = useBoardStore();
 
   //UI components
   import WindowButtons from "./components/WindowButtons.vue";
@@ -17,22 +21,17 @@
 
   //Blockly configuration
   import blocklyOptions from "./config/blocklyOptions";
-  import arduinoGenerator from "./blockly/generators/arduino/arduino";
-  import { changeBoard } from "./blockly/generators/arduino/boards";
 
   //Internal state
   const showCode = ref(true);
-  const arduinoCode = ref("");
   const blockly = ref();
+  watch(() => board.currentSelectedBoard, (cc, prev) => {
+    blockly.value.notifyChange();
+  });
   
   //Methods
   const handleBlocklyChange = (workspace) => {
-    console.log("Change");
-    const generatedCode = arduinoGenerator.workspaceToCode(workspace);
-
-    //TODO Mapear con la opcion elegida por el ussuario actualmente en la barra de navegacion
-    changeBoard(workspace, "uno");
-    arduinoCode.value = generatedCode;
+    project.updateProjectFromWorkspace(workspace);
   }
 
   const handleSave = () => {
@@ -49,7 +48,7 @@
 
   const handleToggleCode = () => {
     showCode.value = !showCode.value;
-    blockly.value.updateView();     
+    blockly.value.notifyChange();     
   };
 
   const handleMenu = (event) => {
@@ -60,6 +59,7 @@
       case E.TCODE_EVENT: handleToggleCode(); break;
       case E.TTHEME_EVENT: app.toggleTheme(); break;
       case E.SEARCH_PORT_EVENT: ports.updateList(); break;
+      case E.COMPILE_UPLOAD_EVENT: project.run(); break;
       default: throw "Missing handler for " + event;
     }
   }
@@ -83,7 +83,7 @@
         ref="blockly"
         @change="handleBlocklyChange">
       </BlocklyComponent>
-      <CodeViewer v-if="showCode" class="code-view" v-model="arduinoCode"></CodeViewer>
+      <CodeViewer v-if="showCode" class="code-view" v-model="project.projectGeneratedCode.value"></CodeViewer>
     </t-content>
   </t-layout>
 </template>
