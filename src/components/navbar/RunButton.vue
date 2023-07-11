@@ -24,7 +24,7 @@
             theme="success"
             :onClick="props.onClick"
         >
-            <t-icon size="25px" name="check"/>
+            <t-icon size="20px" name="check"/>
         </t-button>
     </template>
 </template>
