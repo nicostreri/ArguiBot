@@ -116,7 +116,5 @@
   .code-view {
     width: 34%; 
     height: 100%;
-    margin: 0; 
-    overflow: auto;
   }
 </style>

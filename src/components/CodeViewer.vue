@@ -20,9 +20,29 @@
 
 <template>
     <PrismEditor 
+        class="codeviewer"
         v-model="props.modelValue" 
         :highlight="highlighter" 
         line-numbers 
         :readonly=true>
     </PrismEditor>
 </template>
+
+<style>
+    .codeviewer::-webkit-scrollbar{
+        width: 6px;
+        background: transparent;
+    }
+
+    .codeviewer::-webkit-scrollbar-thumb {
+        background-color: #e4e4e4;
+        border-radius: 100px;
+    }
+
+    .codeviewer::-webkit-scrollbar-track{
+        border-radius: 6px;
+        border: 4px solid transparent;
+        background-clip: content-box;
+        background-color: transparent;
+    }
+</style>
