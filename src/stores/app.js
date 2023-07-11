@@ -30,7 +30,6 @@ export const useAppStore = defineStore('app', () => {
     }
 
     function startApp(){
-        console.log(isDarkTheme.value);
         toggleDarkTheme(isDarkTheme.value);
         board.updateList();
         port.updateList();
