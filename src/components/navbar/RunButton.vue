@@ -1,6 +1,7 @@
 <script setup>
     //Stores
     import { useProjectStore } from "../../stores/project";
+    import { PlayIcon, CheckIcon } from "tdesign-icons-vue-next";
     const project = useProjectStore();
     
     const props = defineProps(["onClick"]);
@@ -14,7 +15,8 @@
             :shape="project.isRunning.value ? 'round' : 'circle'" 
             :onClick="props.onClick"
         >
-            <t-icon size="25px" name="play"/>
+            <PlayIcon size="25px"></PlayIcon>
+            <!-- <PlayIcon name="play"/> -->
         </t-button>
     </template>
     <template v-else>
@@ -24,7 +26,7 @@
             theme="success"
             :onClick="props.onClick"
         >
-            <t-icon size="20px" name="check"/>
+            <CheckIcon size="20px"/>
         </t-button>
     </template>
 </template>

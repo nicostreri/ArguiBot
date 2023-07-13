@@ -1,4 +1,7 @@
 <script setup>
+  //UI Components
+  import { FileIcon } from 'tdesign-icons-vue-next';
+
   import E from './NavEvents';
 
   const emit = defineEmits(['onSelect'])
@@ -9,7 +12,7 @@
 
 <template>
   <t-submenu title="Archivo" class="over-bar">
-    <template #icon><t-icon name="file"/></template>
+    <template #icon><FileIcon /></template>
     
     <t-menu-item :onClick="eClick(E.SAVE_EVENT)">Guardar</t-menu-item>
   </t-submenu>

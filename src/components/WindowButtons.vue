@@ -1,4 +1,7 @@
 <script setup>
+  //UI Components
+  import { RemoveIcon, RectangleIcon, CloseIcon } from 'tdesign-icons-vue-next';
+
   //Tauri APIs
   import { appWindow } from '@tauri-apps/api/window'
 
@@ -18,9 +21,9 @@
 
 <template>
   <div class="buttons">
-    <t-button shape="square" variant="text" class="op-button"><t-icon name="remove" :onClick="handleMinimize"/></t-button>
-    <t-button shape="square" variant="text" class="op-button"><t-icon name="rectangle" :onClick="handleMaximize"/></t-button>
-    <t-button shape="square" variant="text" class="op-button"><t-icon name="close" :onClick="handleClose"/></t-button>      
+    <t-button shape="square" variant="text" class="op-button"><RemoveIcon :onClick="handleMinimize"/></t-button>
+    <t-button shape="square" variant="text" class="op-button"><RectangleIcon :onClick="handleMaximize"/></t-button>
+    <t-button shape="square" variant="text" class="op-button"><CloseIcon :onClick="handleClose"/></t-button>      
   </div>
 </template>
 

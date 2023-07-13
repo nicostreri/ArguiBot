@@ -11,6 +11,7 @@
   import EditorSubMenu from "./EditorSubMenu.vue";
   import ProgrammingSubMenu from "./ProgrammingSubMenu.vue";
   import RunButton from "./RunButton.vue";
+  import { RollbackIcon, RollfrontIcon, SaveIcon } from "tdesign-icons-vue-next";
 
   //Events
   const emit = defineEmits(['onSelect']);
@@ -34,10 +35,12 @@
         
         <template #operations>
           <t-space class="over-bar" style="padding-right: 110px;">
-            <t-button :loading="true" variant="text" class="op-button" :onClick="eClick(E.SAVE_EVENT)"><t-icon name="save"/></t-button>
             <RunButton class="op-button" :onClick="eClick(E.COMPILE_UPLOAD_EVENT)"></RunButton>
-            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.UNDO_EVENT)"><t-icon name="rollback"/></t-button>
-            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.REDO_EVENT)"><t-icon name="rollfront"/></t-button>
+            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.UNDO_EVENT)"><RollbackIcon /></t-button>
+            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.REDO_EVENT)"><RollfrontIcon/></t-button>
+            <t-button :disabled="!project.allowsSave.value" variant="text" class="op-button" :onClick="eClick(E.SAVE_EVENT)">
+              <SaveIcon/>
+            </t-button>
             <ServerStatus></ServerStatus>
           </t-space>
           </template>

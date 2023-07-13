@@ -1,4 +1,7 @@
 <script setup>
+  //UI Components
+  import { ErrorCircleIcon } from 'tdesign-icons-vue-next';
+
   import { computed } from 'vue';
   const props = defineProps(['title', 'options', 'modelValue', 'loading']);
   const emit = defineEmits(['update:modelValue']);
@@ -26,7 +29,7 @@
     
     <!-- Render items -->
     <t-space v-if="!loading" class="radio-list size-space">
-      <template v-if="!options.length"><t-icon name="error-circle" size="large"/>Sin datos</template>
+      <template v-if="!options.length"><ErrorCircleIcon size="large"/>Sin datos</template>
 
       <t-radio-group v-model="currentValue">
         <t-menu-item v-for="item in options">

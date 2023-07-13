@@ -1,6 +1,8 @@
 <script setup>
   //UI Components
   import Divider from './Divider.vue';
+  import { Edit1Icon } from 'tdesign-icons-vue-next';
+
   import E from './NavEvents';
 
   const props = defineProps(['availableBoards', 'availablePorts']);
@@ -12,7 +14,7 @@
 
 <template>
   <t-submenu title="Editor" class="over-bar">
-    <template #icon><t-icon name="edit-1"/></template>
+    <template #icon><Edit1Icon /></template>
     
     <t-menu-item :onClick="()=>{e(E.UNDO_EVENT)}">Deshacer último cambio</t-menu-item>
     <t-menu-item :onClick="()=>{e(E.REDO_EVENT)}">Rehacer último cambio</t-menu-item>

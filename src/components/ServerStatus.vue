@@ -7,7 +7,9 @@
     show-arrow
     :delay=2000
   >
-    <a href="javascript:;" :class="$attrs.class"><t-icon :class="{'server-icon-online': status, 'server-icon-offline': !status}" name="server"/></a>
+    <a href="javascript:;" :class="$attrs.class">
+      <ServerIcon :class="{'server-icon-online': status, 'server-icon-offline': !status}"/>
+    </a>
   </t-tooltip>
 </template>
 
@@ -22,6 +24,9 @@
 </style>
 
 <script>
+  //UI Components
+  import { ServerIcon } from 'tdesign-icons-vue-next'
+
   export default {
     data() {
       return {
@@ -41,6 +46,9 @@
         const { type } = event;
         this.status = type === 'online'
       }
+    },
+    components: {
+      ServerIcon
     }
   }
 </script>
