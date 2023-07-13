@@ -18,6 +18,7 @@
   import NavBar from "./components/navbar/NavBar.vue";
   import BlocklyComponent from "./components/BlocklyComponent.vue";
   import CodeViewer from "./components/CodeViewer.vue";
+  import PackLibrariesUpdateViewer from "./components/PackLibrariesUpdateViewer.vue";
 
   //Blockly configuration
   import blocklyOptions from "./config/blocklyOptions";
@@ -86,6 +87,7 @@
       <CodeViewer v-if="showCode" class="code-view" v-model="project.projectGeneratedCode.value"></CodeViewer>
     </t-content>
   </t-layout>
+  <PackLibrariesUpdateViewer></PackLibrariesUpdateViewer>
 </template>
 
 <style scoped>

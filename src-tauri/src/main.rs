@@ -22,6 +22,8 @@ async fn close_splashscreen(window: tauri::Window) {
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_upload::init())
+        .plugin(tauri_plugin_extract::init())
         .invoke_handler(tauri::generate_handler![greet])
         .invoke_handler(tauri::generate_handler![close_splashscreen])
         .run(tauri::generate_context!())

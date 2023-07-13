@@ -3,14 +3,17 @@
  * @description This module contains the functions related to the Arduino CLI.
  */
 import { v4 as uuidv4 } from 'uuid';
+import { checkLibrariesInstallation, getArduinoConfigFilePath } from './arduinoCLILibraryService';
 
 //Tauri APIs
 import { Command } from '@tauri-apps/api/shell'
 import { appLocalDataDir, join } from '@tauri-apps/api/path';
 import { exists, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs';
 
-const runArduinoCLI = async (args) => {
+const runArduinoCLI = async (args, withConfigFile = false) => {
     args = args.concat(["--format", "json"]);
+    if(withConfigFile) 
+        args = args.concat(["--config-file", await getArduinoConfigFilePath()]);
     return Command.sidecar("binaries/arduino-cli", args).execute();
 }
 
@@ -47,8 +50,14 @@ export const getAvailablePorts = async () => {
 const getLocalSketchPath = async (sketchID = undefined) => {
     if(!sketchID) throw new Error("Undefined sketchID not allowed");
     const dataDir = await appLocalDataDir();
-    const sketchPath = await join(dataDir, sketchID);
+    const sketchPath = await join(dataDir, "sketches", sketchID);
     return sketchPath;
+}
+
+const getLocalSketchFilePath = async (sketchID = undefined) => {
+    const sketchPath = await getLocalSketchPath(sketchID);
+    const sketchFilePath = await join(sketchPath, sketchID + ".ino");
+    return sketchFilePath;
 }
 
 /**
@@ -69,7 +78,7 @@ const createNewSketch = async (sketchID = undefined) => {
 
 const sketchExists = async (sketchID) => {
     if(!sketchID) sketchID = "";
-    const sketchFilePath = await join(sketchID, sketchID + ".ino");
+    const sketchFilePath = await getLocalSketchFilePath(sketchID)
     const result = await exists(sketchFilePath, {dir: BaseDirectory.AppLocalData});
     return result;
 }
@@ -83,7 +92,7 @@ const checkSketchOrCreate = async (sketchID = undefined) => {
 
 const saveSketch = async ({ sketchID = undefined, sourceCode = "" }) => {
     sketchID = await checkSketchOrCreate(sketchID);
-    const sketchFilePath = await join(sketchID, sketchID + ".ino");
+    const sketchFilePath = await getLocalSketchFilePath(sketchID);
 
     //Save to file
     try {
@@ -101,7 +110,8 @@ const compileSketch = async ({ sketchID = undefined, boardFQBN = "" }) => {
     sketchID = await checkSketchOrCreate(sketchID);
     const sketchPath = await getLocalSketchPath(sketchID);
 
-    const response = await runArduinoCLI(["compile", "-b", boardFQBN, sketchPath]);
+    await checkLibrariesInstallation();
+    const response = await runArduinoCLI(["compile", "-b", boardFQBN, sketchPath], true);
     if(response.code != 0){
         //Checks errors
         const compilerResponse = response.stdout;
@@ -115,7 +125,8 @@ const uploadSketch = async ({ sketchID = undefined, boardFQBN = "", boardPort = 
     sketchID = await checkSketchOrCreate(sketchID);
     const sketchPath = await getLocalSketchPath(sketchID);
 
-    const response = await runArduinoCLI(["upload", "-b", boardFQBN, "-p", boardPort, "--discovery-timeout", "10s", sketchPath]);
+    await checkLibrariesInstallation();
+    const response = await runArduinoCLI(["upload", "-b", boardFQBN, "-p", boardPort, "--discovery-timeout", "10s", sketchPath], true);
     if(response.code != 0){
         //Checks errors
         const compilerResponse = response.stderr;

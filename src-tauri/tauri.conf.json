@@ -24,7 +24,7 @@
       "fs": {
         "all": false,
         "copyFile": false,
-        "createDir": false,
+        "createDir": true,
         "exists": true,
         "readDir": false,
         "readFile": true,
