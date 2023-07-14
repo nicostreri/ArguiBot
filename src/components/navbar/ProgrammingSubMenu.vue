@@ -12,7 +12,7 @@
   //UI Components
   import MenuRadioList from "./../MenuRadioList.vue";
   import Divider from "./Divider.vue";
-  import { Edit1Icon } from "tdesign-icons-vue-next";
+  import { SettingIcon } from "tdesign-icons-vue-next";
 
   const emit = defineEmits(['onSelect']);
   const e = (eventName) => {
@@ -22,7 +22,7 @@
 
 <template>
   <t-submenu title="Programación" class="over-bar">
-    <template #icon><Edit1Icon /></template>
+    <template #icon><SettingIcon /></template>
     
     <MenuRadioList 
       title="Seleccionar Placa de Desarrollo" 
