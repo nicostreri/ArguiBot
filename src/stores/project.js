@@ -1,66 +1,136 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
-import * as Blockly from "blockly";
-import arduinoGenerator from "./../blockly/generators/arduino/arduino";
-import { verifySaveCompileAndUploadSketch } from "./../helpers/arduinoCLIService";
-import { changeBoard } from "../blockly/generators/arduino/boards";
+import { computed, ref, watch } from "vue";
+
+//Stores
 import { useBoardStore } from "./board";
 import { usePortStore } from "./port";
-import { NotifyPlugin } from 'tdesign-vue-next';
+import { useGroupStore } from "./group";
+
+//Blockly and Arduino imports
+import * as Blockly from "blockly";
+import blocklyOptions from "./../config/blocklyOptions";
+import arduinoGenerator from "./../blockly/generators/arduino/arduino";
+import { changeBoard } from "../blockly/generators/arduino/boards";
+import { verifySaveCompileAndUploadSketch } from "./../helpers/arduinoCLIService";
 
 export const useProjectStore = defineStore("currentProject", () => {
     //Stores
     const board = useBoardStore();
     const port = usePortStore();
+    const group = useGroupStore();
 
-    //Current project properties
-    const canBeSaved = ref(false);
-    const canBeCompiled = ref(false);
-    const cloudID = ref(undefined);
-    const projectType = ref("arduino");
-    const projectCode = ref(undefined);
-    
-    //Generation data
+    //Project edit data
+    const isOpened = ref(false); //Indicates if there is a project open
+    const currentProjectData = ref({});
+    const currentAttachedWorkspace = ref(undefined);
+    const workspaceCode = ref({blocks: {blocks: [{'type': 'board_setup_loop'}]}});
+    const unsavedChanges = ref(false);
     const generatedCode = ref("");
-    const localSketchID = ref(undefined);
-    const isCompilingAndUploading = ref(false);
+    const showingGeneratedCode = ref(true);
+    const canBeSaved = ref(false);
+    const canBeRun = ref(false);
+    const running = ref(false);
     const ranSuccessfully = ref(false);
+    const opening = ref(false);
+    const saving = ref(false);
+
+    //Blockly and Arduino CLI data
+    const localSketchID = ref(undefined);
     
     //Getters
-    const allowsSave = computed(() => canBeSaved);
-    const allowsRun = computed(() => canBeCompiled);
-    const isRunning = computed(() => isCompilingAndUploading);
-    const ranSuccessfullyRecently = computed(() => ranSuccessfully);
-    const projectGeneratedCode = computed(() => generatedCode);
+    const isProjectOpen = computed(() => isOpened.value);
+    const allowsSave = computed(() => canBeSaved.value);
+    const allowsRun = computed(() => canBeRun.value);
+    const isRunning = computed(() => running.value);
+    const ranSuccessfullyRecently = computed(() => ranSuccessfully.value);
+    const projectGeneratedCode = computed(() => generatedCode.value);
+    const canBeClosed = computed(() => {
+        return isOpened.value && !running.value;
+    });
+    const showGeneratedCode = computed(() => showingGeneratedCode.value);
+    const isOpening = computed(() => opening.value);
+    const isSaving = computed(() => saving.value);
 
-    //Actions
-    function updateArduinoProjectFromWorkspace(workspace){
-        if(projectType.value != "arduino") return;
-        
-        if(!changeBoard(workspace, board.currentSelectedBoard)){
-            generatedCode.value = "// Placa de Desarrollo incompatible.";
-            canBeCompiled.value = false;
-            return;
-        }
-        const arduinoCode = arduinoGenerator.workspaceToCode(workspace);
-        generatedCode.value = arduinoCode;
-        canBeCompiled.value = true;
+    watch(() => board.currentSelectedBoard, () => {
+        _handleCurrentWorkspaceChange({});
+    })
+
+    //Actions related to Blockly
+    function _updateWorkspaceCode(){
+        if(!currentAttachedWorkspace.value) return;
+
+        const jsonSerialization = Blockly.serialization.workspaces.save(currentAttachedWorkspace.value);
+        workspaceCode.value = jsonSerialization;
+        console.log("Serializando", jsonSerialization);
     }
 
-    function updateProjectFromWorkspace(workspace){
-        const jsonSerialization = Blockly.serialization.workspaces.save(workspace);
-        projectCode.value = jsonSerialization;
+    function _handleCurrentWorkspaceChange(bEvent){
+        if(bEvent.isUiEvent || !currentAttachedWorkspace.value) return;
+        unsavedChanges.value = true;
+        
+        _updateWorkspaceCode();
 
-        if(projectType.value == "arduino"){
-            updateArduinoProjectFromWorkspace(workspace);
+        //Update generated Arduino code
+        if(!changeBoard(currentAttachedWorkspace.value, board.currentSelectedBoard)){
+            generatedCode.value = "// Placa de Desarrollo incompatible.";
+            canBeRun.value = false;
+            return;
         }
+        const arduinoCode = arduinoGenerator.workspaceToCode(currentAttachedWorkspace.value);
+        generatedCode.value = arduinoCode;
+        canBeRun.value = true;
+    }
+
+    /**
+     * 
+     * @param {ref<HTMLElement>} element Reference to the container element where blockly is rendered
+     */
+    function attach(element){
+        detach();
+        
+        //Mount Blockly
+        const wrkspace = Blockly.inject(element.value, blocklyOptions);
+        wrkspace.addChangeListener(Blockly.Events.disableOrphans);
+        wrkspace.addChangeListener(_handleCurrentWorkspaceChange);
+
+        //Render project
+        Blockly.serialization.workspaces.load(workspaceCode.value, wrkspace);
+        currentAttachedWorkspace.value = wrkspace;
+    }
+
+    function undo(){
+        if(!currentAttachedWorkspace.value) return;
+        currentAttachedWorkspace.value.undo();
+    }
+    
+    function redo(){
+        if(!currentAttachedWorkspace.value) return;
+        currentAttachedWorkspace.value.undo(true);
+    }
+
+    function notifyUIChange(){
+        if(!currentAttachedWorkspace.value) return;
+        setTimeout(() => {
+          Blockly.svgResize(currentAttachedWorkspace.value);
+        }, 50);
+    }
+    
+    function detach(){
+        if(!currentAttachedWorkspace.value) return;
+        currentAttachedWorkspace.value.dispose();
+        currentAttachedWorkspace.value = undefined;
+    }
+
+    function toggleShowGeneratedCode(){
+        showingGeneratedCode.value = !showingGeneratedCode.value;
+        notifyUIChange();
     }
 
     async function run(){
-        isCompilingAndUploading.value = true;
+        running.value = true;
         ranSuccessfully.value = false;
-
-        verifySaveCompileAndUploadSketch({ 
+        canBeRun.value = false;
+        return verifySaveCompileAndUploadSketch({ 
             sketchID: localSketchID.value,
             boardFQBN: board.currentSelectedBoard,
             boardPort: port.currentSelectedPort,
@@ -72,26 +142,77 @@ export const useProjectStore = defineStore("currentProject", () => {
             setTimeout(() => {
                 ranSuccessfully.value = false;
             }, 2000);
-        }).catch((e)=> {
-            NotifyPlugin('error', { 
-                title: 'Oops!!', 
-                content: e.message,
-                closeBtn: true,
-                placement: 'bottom-right',
-                duration: 5000
-            });
+            return true;
         }).finally(() => {
-            isCompilingAndUploading.value = false;
+            running.value = false;
+            canBeRun.value = true;
         });
     }
 
+    async function open(projectID){
+        close();
+        opening.value = true;
+        //Find project data
+        const projectData = group.projects.filter(p => p.id == projectID)[0];
+        if(!projectData) throw new Error("Proyecto no encontrado.");
+        currentProjectData.value = projectData;
+
+        //Fetch source code
+        const sourceCode = await fetch(projectData.getURL).then((response => {
+            if(!response.ok) throw new Error("El servidor no respondió correctamente.");
+            return response.json();
+        })).catch(e => {
+            opening.value = false;
+            throw new Error("No se pudo obtener el proyecto desde el Servidor.");
+        });
+
+        workspaceCode.value = sourceCode;
+        if(currentAttachedWorkspace.value){
+            Blockly.serialization.workspaces.load(sourceCode, currentAttachedWorkspace.value);
+        }
+        canBeSaved.value = true;
+        opening.value = false;
+        isOpened.value = true;
+    }
+
+    async function save(){
+        if(!isOpened.value || !canBeSaved.value) return;
+        saving.value = true;
+        //Save the current state of the workspace
+        console.log(JSON.stringify(workspaceCode.value));
+        await fetch(currentProjectData.value.setURL, {
+            method: "POST",
+            body: JSON.stringify(workspaceCode.value),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        }).then(()=>{
+            unsavedChanges.value = false;
+        }).catch(e=>{
+            throw new Error("No se pudo guardar el proyecto en el Servidor.");
+        }).finally(() => {
+            saving.value = false;
+        });
+    }
+
+    function close(forceClose = false){
+        if(!isOpened.value) return;
+        if(unsavedChanges.value && !forceClose) 
+            throw new Error("Guardar el proyecto actual para continuar.");
+
+        //Reset internal data
+        isOpened.value = false;
+        currentProjectData.value = {};
+        unsavedChanges.value = false;
+        generatedCode.value = "";
+        showingGeneratedCode.value = true;
+        canBeSaved.value = false;
+        canBeRun.value = false;
+        running.value = false;
+        ranSuccessfully.value = false;        
+    }
+
     return {
-        allowsSave, 
-        allowsRun, 
-        isRunning, 
-        ranSuccessfullyRecently, 
-        projectGeneratedCode, 
-        updateProjectFromWorkspace, 
-        run
+        isProjectOpen, isOpening, isSaving,
+        allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
+        attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close
     };
 });

@@ -7,8 +7,10 @@ export default {
 
     //File
     SAVE_EVENT: 'file:save',
+    SAVE_CLOSE_EVENT: 'file:save:close',
+    FORCE_CLOSE_PROJECT_EVENT: 'file:close:forced',
 
     //Programming
     SEARCH_PORT_EVENT: 'prog:searchPort',
-    COMPILE_UPLOAD_EVENT: 'prog:compileUpload'
+    RUN_EVENT: 'prog:compileUpload'
 };

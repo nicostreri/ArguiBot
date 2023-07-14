@@ -1,9 +1,14 @@
 <script setup>
+  import { NotifyPlugin } from "tdesign-vue-next";
   import E from "./NavEvents";
   
   //Stores
   import { useProjectStore } from "../../stores/project";
+  import { useAppStore } from "../../stores/app";
+  import { usePortStore } from "../../stores/port";
   const project = useProjectStore();
+  const app = useAppStore();
+  const ports = usePortStore();
 
   //UI components
   import ServerStatus from "./../ServerStatus.vue";
@@ -12,16 +17,59 @@
   import ProgrammingSubMenu from "./ProgrammingSubMenu.vue";
   import RunButton from "./RunButton.vue";
   import { RollbackIcon, RollfrontIcon, SaveIcon } from "tdesign-icons-vue-next";
+  import SaveButton from "./SaveButton.vue";
 
-  //Events
-  const emit = defineEmits(['onSelect']);
-  const e = (eventName) => {
-    emit('onSelect', eventName);
+  const clickToSelect = (eventName) => () => {
+    handleSelectedOption(eventName);
   };
-  const eClick = (eventName) => () => {
-    console.log(eventName);
-    e(eventName);
+
+  const handleRun = () => {
+    project.run()
+    .catch(e => {
+      NotifyPlugin('error', { 
+        title: 'Oops!!', 
+        content: e.message,
+        closeBtn: true,
+        placement: 'bottom-right',
+        duration: 5000
+      });
+    }); 
   };
+
+  const handleSave = async () => {
+    await project.save()
+    .catch(e => {
+      NotifyPlugin('error', { 
+        title: 'Oops!!', 
+        content: e.message,
+        closeBtn: true,
+        placement: 'bottom-right',
+        duration: 5000
+      });
+    });
+  }
+
+  const handleSaveAndClose = async () => {
+    await handleSave();
+    project.close();
+  };
+
+  const handleSelectedOption = (event) => {
+    switch(event){
+      case E.UNDO_EVENT: project.undo(); break;
+      case E.REDO_EVENT: project.redo(); break;
+      case E.TCODE_EVENT: project.toggleShowGeneratedCode(); break;
+      case E.TTHEME_EVENT: app.toggleTheme(); break;
+
+      case E.SAVE_EVENT: handleSave(); break;
+      case E.SAVE_CLOSE_EVENT: handleSaveAndClose(); break;
+      case E.FORCE_CLOSE_PROJECT_EVENT: project.close(true); break;
+
+      case E.SEARCH_PORT_EVENT: ports.updateList(); break;
+      case E.RUN_EVENT: handleRun(); break;
+      default: throw "Missing handler for " + event;
+    }
+  }
 </script>
 
 <template>
@@ -29,22 +77,24 @@
 
   <t-head-menu class="menu" value="appMainMenu" expand-type="popup">
     <template #logo><img height="28" src="icon.png" alt="Logo de la aplicación"/></template>
-        <FileSubMenu @onSelect="e" />
-        <EditorSubMenu @onSelect="e"/>
-        <ProgrammingSubMenu @onSelect="e"/>
+    <FileSubMenu @onSelect="handleSelectedOption" />
+    <EditorSubMenu @onSelect="handleSelectedOption"/>
+    <ProgrammingSubMenu @onSelect="handleSelectedOption"/>
         
-        <template #operations>
-          <t-space class="over-bar" style="padding-right: 110px;">
-            <RunButton class="op-button" :onClick="eClick(E.COMPILE_UPLOAD_EVENT)"></RunButton>
-            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.UNDO_EVENT)"><RollbackIcon /></t-button>
-            <t-button shape="square" variant="text" class="op-button" :onClick="eClick(E.REDO_EVENT)"><RollfrontIcon/></t-button>
-            <t-button :disabled="!project.allowsSave.value" variant="text" class="op-button" :onClick="eClick(E.SAVE_EVENT)">
-              <SaveIcon/>
-            </t-button>
-            <ServerStatus></ServerStatus>
-          </t-space>
-          </template>
-      </t-head-menu>
+    <template #operations>
+      <t-space class="over-bar" style="padding-right: 110px;">
+        <RunButton class="op-button" :onClick="clickToSelect(E.RUN_EVENT)"></RunButton>
+        <t-button shape="square" variant="text" class="op-button" :onClick="clickToSelect(E.UNDO_EVENT)">
+          <RollbackIcon />
+        </t-button>
+        <t-button shape="square" variant="text" class="op-button" :onClick="clickToSelect(E.REDO_EVENT)">
+          <RollfrontIcon/>
+        </t-button>
+        <SaveButton :onClick="clickToSelect(E.SAVE_EVENT)"></SaveButton>
+        <ServerStatus></ServerStatus>
+      </t-space>
+    </template>
+  </t-head-menu>
 </template>
 
 <style scoped>

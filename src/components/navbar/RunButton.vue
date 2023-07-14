@@ -8,20 +8,19 @@
 </script>
 
 <template>
-    <template v-if="!project.ranSuccessfullyRecently.value">
+    <template v-if="!project.ranSuccessfullyRecently">
         <t-button
-            :disabled="!project.allowsRun.value"
-            :loading="project.isRunning.value"
-            :shape="project.isRunning.value ? 'round' : 'circle'" 
+            :disabled="!project.allowsRun"
+            :loading="project.isRunning"
+            :shape="project.isRunning ? 'round' : 'circle'" 
             :onClick="props.onClick"
         >
             <PlayIcon size="25px"></PlayIcon>
-            <!-- <PlayIcon name="play"/> -->
         </t-button>
     </template>
     <template v-else>
         <t-button
-            :disabled="!project.allowsRun.value"
+            :disabled="!project.allowsRun"
             shape="circle" 
             theme="success"
             :onClick="props.onClick"

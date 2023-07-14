@@ -18,8 +18,6 @@
   const e = (eventName) => {
     emit('onSelect', eventName);
   }
-
- 
 </script>
 
 <template>
@@ -41,6 +39,6 @@
     
     <Divider/>
     <t-menu-item :onClick="()=>{e(E.SEARCH_PORT_EVENT)}">Buscar puertos disponibles</t-menu-item>
-    <t-menu-item :disabled="!project.allowsRun.value || project.isRunning.value" :onClick="()=>{e(E.COMPILE_UPLOAD_EVENT)}">Compilar y Subir</t-menu-item>
+    <t-menu-item :disabled="!project.allowsRun" :onClick="()=>{e(E.RUN_EVENT)}">Compilar y Subir</t-menu-item>
   </t-submenu>
 </template>
