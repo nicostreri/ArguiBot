@@ -29,7 +29,7 @@
 
 <style scoped>
   .buttons{
-    z-index: 2;
+    z-index: 500;
     position: fixed;
     right: 0px;
     top: 0px;
