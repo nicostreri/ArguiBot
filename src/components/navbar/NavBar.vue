@@ -16,8 +16,9 @@
   import EditorSubMenu from "./EditorSubMenu.vue";
   import ProgrammingSubMenu from "./ProgrammingSubMenu.vue";
   import RunButton from "./RunButton.vue";
-  import { RollbackIcon, RollfrontIcon, SaveIcon } from "tdesign-icons-vue-next";
+  import { RollbackIcon, RollfrontIcon } from "tdesign-icons-vue-next";
   import SaveButton from "./SaveButton.vue";
+  import UserMenu from "./UserMenu.vue";
 
   const clickToSelect = (eventName) => () => {
     handleSelectedOption(eventName);
@@ -75,7 +76,7 @@
 <template>
   <div data-tauri-drag-region class="titlebar"></div>
 
-  <t-head-menu class="menu" value="appMainMenu" expand-type="popup">
+  <t-head-menu :collapsed="true" class="menu" value="appMainMenu" expand-type="popup">
     <template #logo><img height="28" src="icon.png" alt="Logo de la aplicación"/></template>
     <FileSubMenu @onSelect="handleSelectedOption" />
     <EditorSubMenu @onSelect="handleSelectedOption"/>
@@ -92,6 +93,7 @@
         </t-button>
         <SaveButton :onClick="clickToSelect(E.SAVE_EVENT)"></SaveButton>
         <ServerStatus></ServerStatus>
+        <UserMenu></UserMenu>
       </t-space>
     </template>
   </t-head-menu>

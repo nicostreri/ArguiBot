@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { GET_GROUP_DATA_URL } from "../config/globals";
+import { GET_GROUP_DATA_URL, SET_GROUP_MEMBERS_URL } from "../config/globals";
 import { computed, ref } from "vue";
 import { useProjectStore } from "./project";
 
@@ -19,6 +19,14 @@ export const useGroupStore = defineStore("currentGroup", () => {
     const projects = computed(() => {
         if(!groupData.value.projects) return [];
         return groupData.value.projects;
+    });
+    const name = computed(() => {
+        if(!groupData.value.groupName) return "[Acceso Local]";
+        return groupData.value.groupName;
+    });
+    const members = computed(() => {
+        if(!groupData.value.members) return [];
+        return groupData.value.members;
     })
 
     //Actions
@@ -54,5 +62,17 @@ export const useGroupStore = defineStore("currentGroup", () => {
         groupData.value = {};
     }
 
-    return { isLoading, isLoggedIn, projects, loadGroup, logout};
+    async function updateMembers(membersList){
+        await fetch(SET_GROUP_MEMBERS_URL.replace("%GID", groupData.value.groupID), {
+            method: "POST",
+            body: JSON.stringify(membersList),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        }).then(()=>{
+            groupData.value.members = membersList;
+        }).catch(e=>{
+            throw new Error("Falló el guardo de los integrantes.");
+        });
+    }
+
+    return { name, members, isLoading, isLoggedIn, projects, loadGroup, updateMembers, logout};
 });
