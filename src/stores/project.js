@@ -98,6 +98,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         wrkspace.addChangeListener(_handleCurrentWorkspaceChange);
 
         //Render project
+        changeBoard(wrkspace, board.currentSelectedBoard);
         Blockly.serialization.workspaces.load(workspaceCode.value, wrkspace);
         currentAttachedWorkspace.value = wrkspace;
     }
@@ -155,12 +156,14 @@ export const useProjectStore = defineStore("currentProject", () => {
 
     async function open(projectID){
         close();
-        opening.value = true;
+        if(!board.currentSelectedBoard) throw new Error("Selecionar una Placa de Desarrollo antes de continuar.");
+
         //Find project data
         const projectData = group.projects.filter(p => p.id == projectID)[0];
         if(!projectData) throw new Error("Proyecto no encontrado.");
         currentProjectData.value = projectData;
 
+        opening.value = true;
         //Fetch source code
         const sourceCode = await fetch(projectData.getURL).then((response => {
             if(!response.ok) throw new Error("El servidor no respondió correctamente.");
@@ -169,10 +172,15 @@ export const useProjectStore = defineStore("currentProject", () => {
             opening.value = false;
             throw new Error("No se pudo obtener el proyecto desde el Servidor.");
         });
+        //Check board
+        if(sourceCode.board != board.currentSelectedBoard){
+            opening.value = false;
+            throw new Error("El proyecto no está diseñado para la Placa de Desarrollo seleccionada.");
+        }
 
-        workspaceCode.value = sourceCode;
+        workspaceCode.value = sourceCode.project;
         if(currentAttachedWorkspace.value){
-            Blockly.serialization.workspaces.load(sourceCode, currentAttachedWorkspace.value);
+            Blockly.serialization.workspaces.load(sourceCode.project, currentAttachedWorkspace.value);
         }
         canBeSaved.value = true;
         opening.value = false;
@@ -183,10 +191,14 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(!isOpened.value || !canBeSaved.value) return;
         saving.value = true;
         //Save the current state of the workspace
-        console.log(JSON.stringify(workspaceCode.value));
+        const dataToSave = {
+            project: workspaceCode.value,
+            board: board.currentSelectedBoard
+        };
+
         await fetch(currentProjectData.value.setURL, {
             method: "POST",
-            body: JSON.stringify(workspaceCode.value),
+            body: JSON.stringify(dataToSave),
             headers: {"Content-type": "application/json; charset=UTF-8"}
         }).then(()=>{
             unsavedChanges.value = false;
@@ -207,8 +219,10 @@ export const useProjectStore = defineStore("currentProject", () => {
               extensions: ['rst']
             }]
         });
-        const projectToSave = JSON.stringify(workspaceCode.value);
-
+        const projectToSave = JSON.stringify({
+            project: workspaceCode.value,
+            board: board.currentSelectedBoard
+        });
         try{
             await writeTextFile(filePath, projectToSave);
         }catch(e){
