@@ -55,6 +55,7 @@
     <t-menu-item :disabled="!project.canBeClosed" :onClick="eClick(E.FORCE_CLOSE_PROJECT_EVENT)">
       Cerrar proyecto sin guardar
     </t-menu-item>
+    <Divider/>
     <t-menu-item :disabled="!project.allowsSave" :onClick="eClick(E.DOWNLOAD_PROJECT_EVENT)">Descargar copia del proyecto</t-menu-item>
   </t-submenu>
 </template>
