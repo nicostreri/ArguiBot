@@ -39,7 +39,8 @@
       },
       "dialog": {
         "all": false,
-        "message": true
+        "message": true,
+        "save": true
       },
       "window": {
         "all": false,

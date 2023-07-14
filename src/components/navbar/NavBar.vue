@@ -55,6 +55,19 @@
     project.close();
   };
 
+  const handleDownload = async () => {
+    await project.localSave()
+    .catch(e => {
+      NotifyPlugin('error', { 
+        title: 'Oops!!', 
+        content: e.message,
+        closeBtn: true,
+        placement: 'bottom-right',
+        duration: 5000
+      });
+    });
+  }
+
   const handleSelectedOption = (event) => {
     switch(event){
       case E.UNDO_EVENT: project.undo(); break;
@@ -64,6 +77,7 @@
 
       case E.SAVE_EVENT: handleSave(); break;
       case E.SAVE_CLOSE_EVENT: handleSaveAndClose(); break;
+      case E.DOWNLOAD_PROJECT_EVENT: handleDownload(); break;
       case E.FORCE_CLOSE_PROJECT_EVENT: project.close(true); break;
 
       case E.SEARCH_PORT_EVENT: ports.updateList(); break;

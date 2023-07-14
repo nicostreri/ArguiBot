@@ -9,6 +9,7 @@ export default {
     SAVE_EVENT: 'file:save',
     SAVE_CLOSE_EVENT: 'file:save:close',
     FORCE_CLOSE_PROJECT_EVENT: 'file:close:forced',
+    DOWNLOAD_PROJECT_EVENT: "file:download",
 
     //Programming
     SEARCH_PORT_EVENT: 'prog:searchPort',

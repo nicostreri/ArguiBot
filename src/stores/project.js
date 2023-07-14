@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
 
+//Tauri API
+import { save as saveTauri } from '@tauri-apps/api/dialog';
+import { writeTextFile } from "@tauri-apps/api/fs";
+
 //Stores
 import { useBoardStore } from "./board";
 import { usePortStore } from "./port";
@@ -193,6 +197,25 @@ export const useProjectStore = defineStore("currentProject", () => {
         });
     }
 
+    async function localSave(){
+        if(!isOpened.value || !canBeSaved.value) return;
+
+        const filePath = await saveTauri({
+            title: "Guardar copia local del proyecto",
+            filters: [{
+              name: 'Archivos RST',
+              extensions: ['rst']
+            }]
+        });
+        const projectToSave = JSON.stringify(workspaceCode.value);
+
+        try{
+            await writeTextFile(filePath, projectToSave);
+        }catch(e){
+            throw new Error("No se pudo guardar localmente.");
+        }
+    }
+
     function close(forceClose = false){
         if(!isOpened.value) return;
         if(unsavedChanges.value && !forceClose) 
@@ -213,6 +236,7 @@ export const useProjectStore = defineStore("currentProject", () => {
     return {
         isProjectOpen, isOpening, isSaving,
         allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
-        attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close
+        attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close,
+        localSave
     };
 });
