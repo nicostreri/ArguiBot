@@ -1,6 +1,6 @@
 <script setup>
   //UI Components
-  import { FileIcon } from 'tdesign-icons-vue-next';
+  import { FileIcon, ErrorCircleIcon } from 'tdesign-icons-vue-next';
   import Divider from "./Divider.vue";
   import { NotifyPlugin } from 'tdesign-vue-next';
 
@@ -38,7 +38,16 @@
     <template #icon><FileIcon /></template>
 
     <t-submenu title="Abrir proyecto en línea">
-      <t-menu-item v-for="p in group.projects" :onClick="openProject(p.id)">{{ p.name }}</t-menu-item>
+      <!-- Render items -->
+      <t-space :size="4" direction="vertical" class="project-list size-space" >
+        <template v-if="!group.projects.length">
+          <t-space>
+            <ErrorCircleIcon size="large"/>Sin proyectos disponibles.
+          </t-space>
+        </template>
+
+        <t-menu-item v-for="p in group.projects" :onClick="openProject(p.id)">{{ p.name }}</t-menu-item>
+      </t-space>
     </t-submenu>
 
     <Divider></Divider>
@@ -48,3 +57,30 @@
     </t-menu-item>
   </t-submenu>
 </template>
+
+<style scoped>
+  .size-space{
+    min-width: 250px;
+  }
+  .project-list{
+    overflow: auto;
+    max-height: 500px;
+  }
+
+  .project-list::-webkit-scrollbar{
+    width: 6px;
+    background: transparent;
+  }
+
+  .project-list::-webkit-scrollbar-thumb {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  .project-list::-webkit-scrollbar-track{
+    border-radius: 6px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: transparent;
+  }
+</style>
