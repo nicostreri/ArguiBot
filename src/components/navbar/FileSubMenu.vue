@@ -30,6 +30,9 @@
     });
   }
 
+  const handleResetProject = () => {
+    project.reset();
+  }
   
 </script>
 
@@ -60,6 +63,7 @@
       Cerrar proyecto sin guardar
     </t-menu-item>
     <Divider/>
+    <t-menu-item :disabled="!project.isResettable" :onClick="handleResetProject">Restablecer proyecto</t-menu-item>
     <t-menu-item :disabled="!project.allowsSave" :onClick="eClick(E.DOWNLOAD_PROJECT_EVENT)">Descargar copia del proyecto</t-menu-item>
   </t-submenu>
 </template>

@@ -29,11 +29,13 @@ export const useProjectStore = defineStore("currentProject", () => {
     const currentProjectData = ref({});
     const currentAttachedWorkspace = ref(undefined);
     const workspaceCode = ref({blocks: {blocks: [{'type': 'board_setup_loop'}]}});
+    const workspaceResetCode = ref({blocks: {blocks: [{'type': 'board_setup_loop'}]}});
     const unsavedChanges = ref(false);
     const generatedCode = ref("");
     const showingGeneratedCode = ref(true);
     const canBeSaved = ref(false);
     const canBeRun = ref(false);
+    const canBeReset = ref(false);
     const running = ref(false);
     const ranSuccessfully = ref(false);
     const opening = ref(false);
@@ -67,6 +69,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(!currentProjectData.value.solvedCorrectly) return false;
         return currentProjectData.value.solvedCorrectly;
     });
+    const isResettable = computed(() => canBeReset.value);
 
     watch(() => board.currentSelectedBoard, () => {
         _handleCurrentWorkspaceChange({});
@@ -194,6 +197,11 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(currentAttachedWorkspace.value){
             Blockly.serialization.workspaces.load(sourceCode.project, currentAttachedWorkspace.value);
         }
+        if(sourceCode.projectReset){
+            canBeReset.value = true;
+            workspaceResetCode.value = sourceCode.projectReset;
+        }
+
         currentProjectData.value = projectData;
         canBeSaved.value = true;
         opening.value = false;
@@ -208,7 +216,8 @@ export const useProjectStore = defineStore("currentProject", () => {
         //Save the current state of the workspace
         const dataToSave = {
             project: workspaceCode.value,
-            board: board.currentSelectedBoard
+            board: board.currentSelectedBoard,
+            projectReset: workspaceResetCode.value
         };
 
         await fetch(currentProjectData.value.setURL, {
@@ -256,6 +265,14 @@ export const useProjectStore = defineStore("currentProject", () => {
         })
     }
 
+    function reset(){
+        if(!canBeReset.value) return;
+        workspaceCode.value = workspaceResetCode.value;
+        if(currentAttachedWorkspace.value){
+            Blockly.serialization.workspaces.load(workspaceResetCode.value, currentAttachedWorkspace.value);
+        }
+    }
+
     function close(forceClose = false){
         if(!isOpened.value) return;
         if(unsavedChanges.value && !forceClose) 
@@ -270,13 +287,15 @@ export const useProjectStore = defineStore("currentProject", () => {
         canBeSaved.value = false;
         canBeRun.value = false;
         running.value = false;
-        ranSuccessfully.value = false;        
+        ranSuccessfully.value = false;
+        canBeReset.value = false;
+        workspaceResetCode.value = {blocks: {blocks: [{'type': 'board_setup_loop'}]}};      
     }
 
     return {
-        isProjectOpen, isOpening, isSaving, hasReview, reviewComment, solvedCorrectly,
+        isProjectOpen, isOpening, isSaving, hasReview, reviewComment, solvedCorrectly, isResettable,
         allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
         attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close,
-        localSave, markForReview
+        localSave, markForReview, reset
     };
 });
