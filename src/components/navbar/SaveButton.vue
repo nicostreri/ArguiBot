@@ -8,7 +8,7 @@
 </script>
 
 <template>
-    <t-button
+    <t-button v-if="!project.solvedCorrectly"
         :disabled="!project.allowsSave"
         :loading="project.isSaving"
         :shape="project.isSaving ? 'round' : 'circle'" 
@@ -18,6 +18,15 @@
     >
         <SaveIcon/>
     </t-button>
+
+    <t-tooltip v-else class="op-button" content="Solucionado correctamente, no se permite modificar." placement="bottom">
+        <t-button
+            shape="circle"   
+            variant="text"
+        > 
+            <SaveIcon/>
+        </t-button>
+    </t-tooltip>
 </template>
 
 <style scoped>

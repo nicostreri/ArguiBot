@@ -63,6 +63,10 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(!currentProjectData.value.revised) return "";
         return currentProjectData.value.comment;
     });
+    const solvedCorrectly = computed(() => {
+        if(!currentProjectData.value.solvedCorrectly) return false;
+        return currentProjectData.value.solvedCorrectly;
+    });
 
     watch(() => board.currentSelectedBoard, () => {
         _handleCurrentWorkspaceChange({});
@@ -198,6 +202,8 @@ export const useProjectStore = defineStore("currentProject", () => {
 
     async function save(){
         if(!isOpened.value || !canBeSaved.value) return;
+        if(solvedCorrectly.value) return; //read only
+
         saving.value = true;
         //Save the current state of the workspace
         const dataToSave = {
@@ -268,7 +274,7 @@ export const useProjectStore = defineStore("currentProject", () => {
     }
 
     return {
-        isProjectOpen, isOpening, isSaving, hasReview, reviewComment,
+        isProjectOpen, isOpening, isSaving, hasReview, reviewComment, solvedCorrectly,
         allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
         attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close,
         localSave, markForReview

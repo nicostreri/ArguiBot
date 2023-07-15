@@ -55,7 +55,7 @@
     </t-submenu>
 
     <Divider></Divider>
-    <t-menu-item :disabled="!project.allowsSave" :onClick="eClick(E.SAVE_CLOSE_EVENT)">Guardar y Cerrar proyecto</t-menu-item>
+    <t-menu-item :disabled="!project.allowsSave || project.solvedCorrectly" :onClick="eClick(E.SAVE_CLOSE_EVENT)">Guardar y Cerrar proyecto</t-menu-item>
     <t-menu-item :disabled="!project.canBeClosed" :onClick="eClick(E.FORCE_CLOSE_PROJECT_EVENT)">
       Cerrar proyecto sin guardar
     </t-menu-item>
