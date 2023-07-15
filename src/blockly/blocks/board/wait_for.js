@@ -29,7 +29,7 @@ const jsonDefinition = {
 const blockToArduino = function (block) {
     const condition = arduinoGenerator.valueToCode(block, 'CONDITION', arduinoGenerator.ORDER_NONE) || 'true';
     let code = `do { delay(10); } while (!(${condition}));\n`;
-    code += "delay(220);";
+    code += "delay(320);";
     return code + '\n';
 };
 
