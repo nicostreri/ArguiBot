@@ -3,7 +3,6 @@
     import { useGroupStore } from '../../stores/group';
     import { computed, ref } from 'vue';
     import { NotifyPlugin } from 'tdesign-vue-next';
-import { GET_GROUP_DATA_URL } from '../../config/globals';
     
     //Store
     const group = useGroupStore();
