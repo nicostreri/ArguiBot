@@ -18,7 +18,13 @@ export const useGroupStore = defineStore("currentGroup", () => {
     });
     const projects = computed(() => {
         if(!groupData.value.projects) return [];
-        return groupData.value.projects;
+        return groupData.value.projects.map(p => {
+            return {
+                ...p, 
+                solvedCorrectly: p.revised && p.status == 'ok',
+                solvedWithError: p.revised && p.status == 'toCheck'
+            }
+        });
     });
     const name = computed(() => {
         if(!groupData.value.groupName) return "[Acceso Local]";
@@ -27,7 +33,11 @@ export const useGroupStore = defineStore("currentGroup", () => {
     const members = computed(() => {
         if(!groupData.value.members) return [];
         return groupData.value.members;
-    })
+    });
+    const groupID = computed(() => {
+        if(!groupData.value.groupID) return "NO_ID";
+        return groupData.value.groupID;
+    });
 
     //Actions
     async function loadGroup(groupID){
@@ -74,5 +84,5 @@ export const useGroupStore = defineStore("currentGroup", () => {
         });
     }
 
-    return { name, members, isLoading, isLoggedIn, projects, loadGroup, updateMembers, logout};
+    return { name, members, isLoading, isLoggedIn, projects, groupID, loadGroup, updateMembers, logout};
 });

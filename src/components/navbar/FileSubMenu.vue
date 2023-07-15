@@ -1,6 +1,6 @@
 <script setup>
   //UI Components
-  import { FileIcon, ErrorCircleIcon } from 'tdesign-icons-vue-next';
+  import { FileIcon, ErrorCircleIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-vue-next';
   import Divider from "./Divider.vue";
   import { NotifyPlugin } from 'tdesign-vue-next';
 
@@ -46,7 +46,11 @@
           </t-space>
         </template>
 
-        <t-menu-item v-for="p in group.projects" :onClick="openProject(p.id)">{{ p.name }}</t-menu-item>
+        <t-menu-item v-for="p in group.projects" :onClick="openProject(p.id)">
+            {{ p.name }} 
+            <CheckCircleFilledIcon v-if="p.solvedCorrectly" style="color: var(--td-success-color)"/> 
+            <ErrorCircleFilledIcon v-if="p.solvedWithError" style="color: var(--td-warning-color)"/>
+        </t-menu-item>
       </t-space>
     </t-submenu>
 

@@ -16,6 +16,7 @@ import blocklyOptions from "./../config/blocklyOptions";
 import arduinoGenerator from "./../blockly/generators/arduino/arduino";
 import { changeBoard } from "../blockly/generators/arduino/boards";
 import { verifySaveCompileAndUploadSketch } from "./../helpers/arduinoCLIService";
+import { MARK_FOR_REVIEW_URL } from "../config/globals";
 
 export const useProjectStore = defineStore("currentProject", () => {
     //Stores
@@ -54,6 +55,14 @@ export const useProjectStore = defineStore("currentProject", () => {
     const showGeneratedCode = computed(() => showingGeneratedCode.value);
     const isOpening = computed(() => opening.value);
     const isSaving = computed(() => saving.value);
+    const hasReview = computed(() => {
+        if(!currentProjectData.value.revised) return false;
+        return currentProjectData.value.solvedWithError;
+    });
+    const reviewComment = computed(() => {
+        if(!currentProjectData.value.revised) return "";
+        return currentProjectData.value.comment;
+    });
 
     watch(() => board.currentSelectedBoard, () => {
         _handleCurrentWorkspaceChange({});
@@ -230,6 +239,17 @@ export const useProjectStore = defineStore("currentProject", () => {
         }
     }
 
+    async function markForReview(){
+        if(!isOpened.value || !canBeSaved.value) return;
+        await fetch(MARK_FOR_REVIEW_URL
+            .replace("%GID", group.groupID)
+            .replace("%PID", currentProjectData.value.id)
+        ).catch(e=>{
+            console.error(e);
+            throw new Error("No se pudo enviar para revisión.");
+        })
+    }
+
     function close(forceClose = false){
         if(!isOpened.value) return;
         if(unsavedChanges.value && !forceClose) 
@@ -248,9 +268,9 @@ export const useProjectStore = defineStore("currentProject", () => {
     }
 
     return {
-        isProjectOpen, isOpening, isSaving,
+        isProjectOpen, isOpening, isSaving, hasReview, reviewComment,
         allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
         attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close,
-        localSave
+        localSave, markForReview
     };
 });
