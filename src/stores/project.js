@@ -170,8 +170,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         //Find project data
         const projectData = group.projects.filter(p => p.id == projectID)[0];
         if(!projectData) throw new Error("Proyecto no encontrado.");
-        currentProjectData.value = projectData;
-
+       
         opening.value = true;
         //Fetch source code
         const sourceCode = await fetch(projectData.getURL).then((response => {
@@ -191,6 +190,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(currentAttachedWorkspace.value){
             Blockly.serialization.workspaces.load(sourceCode.project, currentAttachedWorkspace.value);
         }
+        currentProjectData.value = projectData;
         canBeSaved.value = true;
         opening.value = false;
         isOpened.value = true;
