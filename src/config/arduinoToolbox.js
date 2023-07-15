@@ -74,6 +74,7 @@ export default {
                 { kind: "label", text: "Controlador"},
                 { kind: "block", type: "board_delay"},
                 { kind: "block", type: "board_millis"},
+                { kind: "block", type: "board_wait_for"},
 
                 { kind: "label", text: "Control de PIN digital"},
                 { kind: "block", type: "board_digital_write"},
