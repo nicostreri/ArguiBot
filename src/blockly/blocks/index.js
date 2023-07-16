@@ -37,6 +37,7 @@ import './board/digital_read';
 import './board/analog_write';
 import './board/analog_read';
 import './board/wait_for';
+import './board/stop';
 
 /**
  * Blocks of Multifunction Shield
