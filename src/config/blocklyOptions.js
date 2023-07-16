@@ -8,7 +8,8 @@ const COLOURS = {
   orange: "#b6780b",
   dark: "#2e2e2f",
   white: "#ffffff",
-  darkRed: "#871918"
+  darkRed: "#871918",
+  darkBlue: "#083d58"
 }
 
 export default {
@@ -32,6 +33,7 @@ export default {
         logic_blocks: { colourPrimary: COLOURS.lightBlue },
         board_blocks: { colourPrimary: COLOURS.orange },
         multi_shield_blocks: { colourPrimary: COLOURS.darkRed },
+        sensors_blocks: { colourPrimary: COLOURS.darkBlue },
       },
       categoryStyles: {
         decisions_category: { colour: COLOURS.lightBlue },
@@ -39,6 +41,7 @@ export default {
         math_category: { colour: COLOURS.violet },
         board_category: { colour: COLOURS.orange },
         multi_shield_category: { colour: COLOURS.darkRed },
+        sensors_category: { colour: COLOURS.darkBlue },
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,

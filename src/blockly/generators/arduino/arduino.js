@@ -63,7 +63,9 @@ arduinoGenerator.PinTypes = {
     SERIAL: 'SERIAL',
     I2C: 'I2C/TWI',
     SPI: 'SPI',
-    CIRCUIT: 'CIRCUIT'
+    CIRCUIT: 'CIRCUIT',
+    CIRCUIT_INPUT: 'CIRCUIT_INPUT',
+    CIRCUIT_OUTPUT: 'CIRCUIT_OUTPUT'
 };
 
 /**

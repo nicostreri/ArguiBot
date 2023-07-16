@@ -100,6 +100,14 @@ export default {
                 { kind: "block", type: "multi_shield_get_button_status"}
             ]
         },
+        {
+            kind: "category",
+            name: "Sensores",
+            categorystyle: "sensors_category",
+            contents: [
+                { kind: "block", type: "sensor_ultrasonic_HCSR04"},
+            ]
+        }
         
     ]
 }

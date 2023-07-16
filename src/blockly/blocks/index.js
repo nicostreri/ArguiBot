@@ -43,3 +43,8 @@ import './board/stop';
  * Blocks of Multifunction Shield
  */
 import './multifunctionShield';
+
+/**
+ * Blocks of sensors
+ */
+import './sensors/ultrasonic_HCSR04';
