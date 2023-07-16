@@ -51,7 +51,9 @@
         "minimize": true,
         "unmaximize": true,
         "unminimize": true,
-        "startDragging": true
+        "startDragging": true,
+        "create": true,
+        "setFocus": true
       }
     },
     "bundle": {

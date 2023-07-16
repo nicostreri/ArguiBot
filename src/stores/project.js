@@ -4,6 +4,7 @@ import { computed, ref, watch } from "vue";
 //Tauri API
 import { save as saveTauri } from '@tauri-apps/api/dialog';
 import { writeTextFile } from "@tauri-apps/api/fs";
+import { WebviewWindow } from '@tauri-apps/api/window'
 
 //Stores
 import { useBoardStore } from "./board";
@@ -70,6 +71,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         return currentProjectData.value.solvedCorrectly;
     });
     const isResettable = computed(() => canBeReset.value);
+    const hasInstructions = computed(() => currentProjectData.value.exerciseURL ? true : false);
 
     watch(() => board.currentSelectedBoard, () => {
         _handleCurrentWorkspaceChange({});
@@ -278,6 +280,10 @@ export const useProjectStore = defineStore("currentProject", () => {
         if(unsavedChanges.value && !forceClose) 
             throw new Error("Guardar el proyecto actual para continuar.");
 
+        let webview = WebviewWindow.getByLabel("exerciseInstructions");
+        if(webview){
+            webview.close();
+        }
         //Reset internal data
         isOpened.value = false;
         currentProjectData.value = {};
@@ -289,13 +295,32 @@ export const useProjectStore = defineStore("currentProject", () => {
         running.value = false;
         ranSuccessfully.value = false;
         canBeReset.value = false;
-        workspaceResetCode.value = {blocks: {blocks: [{'type': 'board_setup_loop'}]}};      
+        workspaceResetCode.value = {blocks: {blocks: [{'type': 'board_setup_loop'}]}};
     }
 
+    async function showExerciseInstructions(){
+        if(!currentProjectData.value.exerciseURL) 
+            throw new Error("El proyecto no tiene asignada una consigna.");
+        
+        let webview = WebviewWindow.getByLabel("exerciseInstructions");
+        if(!webview){
+            webview = new WebviewWindow("exerciseInstructions", {
+                url: currentProjectData.value.exerciseURL,
+                center: true,
+                focus: true,
+                title: "Consigna: " + currentProjectData.value.name
+            });
+        }else{
+            webview.unminimize();
+            webview.setFocus();
+        }
+    }
+
+
     return {
-        isProjectOpen, isOpening, isSaving, hasReview, reviewComment, solvedCorrectly, isResettable,
+        isProjectOpen, isOpening, isSaving, hasReview, reviewComment, solvedCorrectly, isResettable, hasInstructions,
         allowsSave, allowsRun, isRunning, ranSuccessfullyRecently, projectGeneratedCode, canBeClosed, showGeneratedCode,
         attach, undo, redo, notifyUIChange, detach, toggleShowGeneratedCode, save, run, open, close,
-        localSave, markForReview, reset
+        localSave, markForReview, reset, showExerciseInstructions
     };
 });

@@ -20,6 +20,7 @@
   import SaveButton from "./SaveButton.vue";
   import UserMenu from "./UserMenu.vue";
   import ReviewButton from "./ReviewButton.vue";
+  import ExerciseButton from "./ExerciseButton.vue";
 
   const clickToSelect = (eventName) => () => {
     handleSelectedOption(eventName);
@@ -100,6 +101,7 @@
     <template #operations>
       <t-space class="over-bar" style="padding-right: 110px;">
         <ReviewButton></ReviewButton>
+        <ExerciseButton></ExerciseButton>
         <RunButton class="op-button" :onClick="clickToSelect(E.RUN_EVENT)"></RunButton>
         <t-button shape="square" variant="text" class="op-button" :onClick="clickToSelect(E.UNDO_EVENT)">
           <RollbackIcon />
