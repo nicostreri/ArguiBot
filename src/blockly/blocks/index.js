@@ -48,3 +48,4 @@ import './multifunctionShield';
  * Blocks of sensors
  */
 import './sensors/ultrasonic_HCSR04';
+import './sensors/dht11';

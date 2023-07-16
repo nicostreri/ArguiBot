@@ -106,6 +106,7 @@ export default {
             categorystyle: "sensors_category",
             contents: [
                 { kind: "block", type: "sensor_ultrasonic_HCSR04"},
+                { kind: "block", type: "sensor_dht11"}
             ]
         }
         

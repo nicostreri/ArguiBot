@@ -27,7 +27,7 @@ const init = (block, arduinoGenerator) => {
     arduinoGenerator.addFlag("multi_shield_screen_init", "initialized");
 
     // Includes
-    arduinoGenerator.addInclude("multi_shield_lib", "#include <TimerOne.h>", "https://github.com/PaulStoffregen/TimerOne")
+    arduinoGenerator.addInclude("timer_one_lib", "#include <TimerOne.h>", "https://github.com/PaulStoffregen/TimerOne");
 
     // Global variables
     const latchPin = arduinoGenerator.nameDB_.getDistinctName('LATCH_DIO', Names.NameType.DEVELOPER_VARIABLE);
