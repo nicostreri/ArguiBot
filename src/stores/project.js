@@ -33,7 +33,7 @@ export const useProjectStore = defineStore("currentProject", () => {
     const workspaceResetCode = ref({blocks: {blocks: [{'type': 'board_setup_loop'}]}});
     const unsavedChanges = ref(false);
     const generatedCode = ref("");
-    const showingGeneratedCode = ref(true);
+    const showingGeneratedCode = ref(false);
     const canBeSaved = ref(false);
     const canBeRun = ref(false);
     const canBeReset = ref(false);
