@@ -108,7 +108,18 @@ export default {
                 { kind: "block", type: "sensor_ultrasonic_HCSR04"},
                 { kind: "block", type: "sensor_dht11"}
             ]
+        },
+        {
+            kind: "category",
+            name: "Actuadores",
+            categorystyle: "actuators_category",
+            contents: [
+                { kind: "label", text: "Control de Servomotor"},
+                { kind: "block", type: "servo_write"},
+                { kind: "block", type: "servo_write_detach"},
+                { kind: "block", type: "servo_detach"},
+                { kind: "block", type: "servo_write_arg"}
+            ]
         }
-        
     ]
 }

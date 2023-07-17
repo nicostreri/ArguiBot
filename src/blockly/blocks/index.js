@@ -49,3 +49,11 @@ import './multifunctionShield';
  */
 import './sensors/ultrasonic_HCSR04';
 import './sensors/dht11';
+
+/**
+ * Blocks of actuators
+ */
+import './actuators/servo_write';
+import './actuators/servo_write_detach';
+import './actuators/servo_detach';
+import './actuators/servo_write_arg';

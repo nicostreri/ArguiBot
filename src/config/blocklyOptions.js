@@ -9,7 +9,8 @@ const COLOURS = {
   dark: "#2e2e2f",
   white: "#ffffff",
   darkRed: "#871918",
-  darkBlue: "#083d58"
+  darkBlue: "#083d58",
+  rose: "#a55b6d"
 }
 
 export default {
@@ -34,6 +35,7 @@ export default {
         board_blocks: { colourPrimary: COLOURS.orange },
         multi_shield_blocks: { colourPrimary: COLOURS.darkRed },
         sensors_blocks: { colourPrimary: COLOURS.darkBlue },
+        actuators_blocks: { colourPrimary: COLOURS.rose }
       },
       categoryStyles: {
         decisions_category: { colour: COLOURS.lightBlue },
@@ -42,6 +44,7 @@ export default {
         board_category: { colour: COLOURS.orange },
         multi_shield_category: { colour: COLOURS.darkRed },
         sensors_category: { colour: COLOURS.darkBlue },
+        actuators_category: { colour: COLOURS.rose }
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,
