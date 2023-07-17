@@ -89,6 +89,8 @@ arduinoGenerator.init = function(workspace) {
     arduinoGenerator.functionNames_ = Object.create(null);
     // Create a dictionary of setups to be printed in the setup() function
     arduinoGenerator.setups_ = Object.create(null);
+    // Create a dictionary of lines to be printed in the yield() function
+    arduinoGenerator.yield_ = Object.create(null);
     // Create a dictionary of pins to check if their use conflicts
     arduinoGenerator.pins_ = Object.create(null);
     // Create a dictionaties of required libs
@@ -154,6 +156,9 @@ arduinoGenerator.finish = function(code) {
     }
     let setups = arduinoGenerator.dictToList_(arduinoGenerator.setups_);
     if (userSetupCode) setups.push(userSetupCode);
+
+    // yield function
+    let yields = arduinoGenerator.dictToList_(arduinoGenerator.yield_);
     
     // Clean up temporary data
     delete arduinoGenerator.includes_;
@@ -162,6 +167,7 @@ arduinoGenerator.finish = function(code) {
     delete arduinoGenerator.userFunctions_;
     delete arduinoGenerator.functionNames_;
     delete arduinoGenerator.setups_;
+    delete arduinoGenerator.yield_;
     delete arduinoGenerator.pins_;
     delete arduinoGenerator.namedLibs_;
     delete arduinoGenerator.gitLibs_;
@@ -171,8 +177,9 @@ arduinoGenerator.finish = function(code) {
     let allDefs = includes.join('\n') + variables.join('\n') +
         definitions.join('\n') + functions.join('\n\n');
     let setup = 'void setup() {\n  ' + setups.join('\n  ') + '\n}\n\n';
-    let loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}\n';
-    return allDefs + setup + loop + "// "+JSON.stringify(libs);
+    let yieldCode = 'void yield() {\n  ' + yields.join('\n  ') + '\n}\n\n'; 
+    let loop = 'void loop() {\n  yield();\n  ' + code.replace(/\n/g, '\n  ') + '\n}\n';
+    return allDefs + setup + yieldCode + loop + "// "+JSON.stringify(libs);
 };
 
 /**
@@ -279,6 +286,25 @@ arduinoGenerator.addSetup = function(setupTag, code, overwrite) {
     let overwritten = false;
     if(overwrite || (arduinoGenerator.setups_[setupTag] === undefined)){
         arduinoGenerator.setups_[setupTag] = code;
+        overwritten = true;
+    }
+    return overwritten;
+};
+
+/**
+ * Adds a string of code into the Arduino yield() function. It takes an
+ * identifier to not repeat the same kind of code from several
+ * blocks. If overwrite option is set to true it will overwrite whatever
+ * value the identifier held before.
+ * @param {!string} yieldTag Identifier for the type of code.
+ * @param {!string} code Code to be included in the yield() function.
+ * @param {boolean=} overwrite Flag to ignore previously set value.
+ * @return {!boolean} Indicates if the new yield code overwrote a previous one.
+ */
+arduinoGenerator.addYield = function(yieldTag, code, overwrite) {
+    let overwritten = false;
+    if(overwrite || (arduinoGenerator.yield_[yieldTag] === undefined)){
+        arduinoGenerator.yield_[yieldTag] = code;
         overwritten = true;
     }
     return overwritten;

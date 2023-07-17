@@ -26,36 +26,6 @@ const jsonDefinition = {
 };
 
 /**
- * Generate dht_temperature template
- * @returns 
- */
-const getDHTTemperature = () => {
-    return [
-        'float ' + arduinoGenerator.FUNCTION_NAME_PLACEHOLDER_ + '(DHT &sensor){',
-        '   Timer1.stop();',
-        '   float temp = sensor.readTemperature();',
-        '   Timer1.start();',
-        '   return temp;',
-        '}'
-    ].join('\n');
-}
-
-/**
- * Generate dht_humidity template
- * @returns 
- */
-const getDHTHumidity = () => {
-    return [
-        'float ' + arduinoGenerator.FUNCTION_NAME_PLACEHOLDER_ + '(DHT &sensor){',
-        '   Timer1.stop();',
-        '   float humidity = sensor.readHumidity();',
-        '   Timer1.start();',
-        '   return humidity;',
-        '}'
-    ].join('\n');
-}
-
-/**
  * Handler in charge of converting the block into Arduino code.
  * @param {Block} block 
  * @return {string} Arduino code
@@ -66,15 +36,14 @@ const blockToArduino = function (block) {
     const pin = block.getFieldValue("DIGITALPIN_0");
 
     //Required libs
-    arduinoGenerator.addInclude("timer_one_lib", "#include <TimerOne.h>", "https://github.com/PaulStoffregen/TimerOne");
     arduinoGenerator.addInclude("dht_lib", "#include <DHT.h>");
 
     //Required function
     let readFunction;
     if(dataToRead == "TEMP"){
-        readFunction = arduinoGenerator.addFunction('dht_temperature', getDHTTemperature());
+        readFunction = "readTemperature";
     }else{
-        readFunction = arduinoGenerator.addFunction('dht_humidity', getDHTHumidity());
+        readFunction = "readHumidity";
     }
     
     //Reserve pin
@@ -85,7 +54,7 @@ const blockToArduino = function (block) {
     arduinoGenerator.addVariable(varName, `DHT ${varName}(${pin}, DHT11);`, false);
     arduinoGenerator.addSetup(varName, `${varName}.begin();`, false);
 
-    const code = `${readFunction}(${varName})`;
+    const code = `${varName}.${readFunction}()`;
     return [code, arduinoGenerator.ORDER_ATOMIC];
 };
 
