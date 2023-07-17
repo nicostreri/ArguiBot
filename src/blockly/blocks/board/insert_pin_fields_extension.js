@@ -20,7 +20,7 @@ function insertPINs(block, insertionKey, fieldKey, title, pinList){
 Extensions.register('insert_pin_fields_extension',function() {
     const digitalPINs = insertPINs(this, "PD_", 'DIGITALPIN_', "PIN digital", "digitalPins");
     const analogPINs = insertPINs(this, "PA_", 'ANALOGPIN_', "PIN analógico", "analogPins");
-    const pwmPINs = insertPINs(this, "PW_", 'PWMPIN_', "PIN analógico (PWM)", "pwmPins");
+    const pwmPINs = insertPINs(this, "PW_", 'PWMPIN_', "PIN PWM", "pwmPins");
 
     const PINfields = digitalPINs.concat(analogPINs, pwmPINs);
 
