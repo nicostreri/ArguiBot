@@ -12,7 +12,8 @@ import 'tdesign-vue-next/es/style/index.css';
 
 // Start Blockly
 import * as Blockly from "blockly";
-import './blockly/blocks/index';
+import './blockly/fields';
+import './blockly/blocks';
 import * as spanishLang from "blockly/msg/es";
 Blockly.setLocale(spanishLang);
 

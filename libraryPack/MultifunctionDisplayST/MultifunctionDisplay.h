@@ -16,6 +16,7 @@ class MultifunctionDisplay{
         MultifunctionDisplay(int latch, int clock, int data);
         void write(float valueToShow);
         void write(int valueToShow);
+        void write(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4); 
         void clean();
         void refresh();
         ~MultifunctionDisplay();

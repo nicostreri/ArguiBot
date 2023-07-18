@@ -47,6 +47,15 @@ void MultifunctionDisplay::write(int valueToShow) {
    interrupts();
 }
 
+void MultifunctionDisplay::write(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4){
+   noInterrupts();
+   display_raw_segment[0] = d1;
+   display_raw_segment[1] = d2;
+   display_raw_segment[2] = d3;
+   display_raw_segment[3] = d4;
+   interrupts();
+}
+
 void MultifunctionDisplay::clean() {
    noInterrupts();
    display_raw_segment[0] = 0xff;
