@@ -97,7 +97,11 @@ export default {
                 { kind: "block", type: "multi_shield_display_write_float"},
                 { kind: "label", text: "Otros Sensores y Actuadores"},
                 { kind: "block", type: "multi_shield_change_led_status"},
-                { kind: "block", type: "multi_shield_get_button_status"}
+                { kind: "block", type: "multi_shield_get_button_status"},
+                { kind: "block", type: "multi_shield_buzzer_tone", "inputs": {
+                    "FREQ": {block: { type: "math_number", fields: {"NUM": 400}}},
+                    "TIME":   {block: { type: "math_number", fields: {"NUM": 1000}}}
+                }}
             ]
         },
         {

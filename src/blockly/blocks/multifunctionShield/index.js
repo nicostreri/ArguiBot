@@ -3,4 +3,5 @@ import './display_write_int';
 import './display_write_float';
 import './change_led_status';
 import './get_button_status';
+import './buzzer_tone';
 
