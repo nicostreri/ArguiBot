@@ -35,11 +35,10 @@ export const blockToArduino = function (block) {
     //Block data
     const degree = arduinoGenerator.valueToCode(block, "DEGREE", arduinoGenerator.ORDER_ATOMIC);
     const pin = block.getFieldValue("PWMPIN_0");
-    const varName = "actuator_servo_" + pin;
+    const instanceName = init(block, pin);
 
-    init(block, varName, pin);
-    let code = `${varName}.attach(${pin});\n`;
-    code += `${varName}.write( min( max(${degree}, 0), 180) );`;
+    let code = `${instanceName}.attach(${pin});\n`;
+    code += `${instanceName}.write( min( max(${degree}, 0), 180) );`;
     return code + '\n';
 };
 

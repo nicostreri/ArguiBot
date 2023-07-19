@@ -30,11 +30,11 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    init(block, arduinoGenerator);
+    const instanceName = init(block, arduinoGenerator);
     let order = arduinoGenerator.ORDER_NONE;
     let value = arduinoGenerator.valueToCode(block, 'VALUETOSHOW', order) || '0';
 
-    return `display.write((int) (${value}));\n`;
+    return `${instanceName}.write((int) (${value}));\n`;
 };
 
 // Block registration

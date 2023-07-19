@@ -1,6 +1,6 @@
 import {Block, common} from "blockly";
 import arduinoGenerator from "../../generators/arduino/arduino";
-import { blockToArduino as blockWrite } from "./servo_write";
+import { init } from "./servo_write";
 
 const blockName = "servo_write_detach";
 
@@ -36,11 +36,14 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
+    const degree = block.getFieldValue('DEGREE');
     const pin = block.getFieldValue("PWMPIN_0");
-    let code = blockWrite(block);
-    const varName = "actuator_servo_" + pin;
+    const instanceName = init(block, pin);
+
+    let code = `${instanceName}.attach(${pin});\n`;
+    code += `${instanceName}.write(${degree});\n`;
     code += `delay(250);\n`;
-    code += `${varName}.detach();`
+    code += `${instanceName}.detach();`
     return code + '\n';
 };
 

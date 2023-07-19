@@ -1,4 +1,4 @@
-import {Block, common} from "blockly";
+import {Block, common, Names} from "blockly";
 import arduinoGenerator from "../../generators/arduino/arduino";
 
 const blockName = "sensor_dht11";
@@ -50,7 +50,7 @@ const blockToArduino = function (block) {
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.CIRCUIT, "sensor_dht11");
     
     //Instance
-    const varName = "sensor_dht11_" + pin;
+    const varName = arduinoGenerator.nameDB_.getName("sensor_dht11_" + pin, Names.NameType.DEVELOPER_VARIABLE);
     arduinoGenerator.addVariable(varName, `DHT ${varName}(${pin}, DHT11);`, false);
     arduinoGenerator.addSetup(varName, `${varName}.begin();`, false);
 

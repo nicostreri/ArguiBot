@@ -30,7 +30,7 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    init(block, arduinoGenerator);
+    const instanceName = init(block, arduinoGenerator);
     let order = arduinoGenerator.ORDER_NONE;
     let value = arduinoGenerator.valueToCode(block, 'VALUETOSHOW', order) || '0';
 
@@ -38,7 +38,7 @@ const blockToArduino = function (block) {
     const trueValue = startValue + "0b10010010, 0b11111001";
     const falseValue = startValue + "0b11001000, 0b11000000";
 
-    return `if(${value}){display.write(${trueValue});} else {display.write(${falseValue});}\n`;
+    return `if(${value}){${instanceName}.write(${trueValue});} else {${instanceName}.write(${falseValue});}\n`;
 };
 
 // Block registration

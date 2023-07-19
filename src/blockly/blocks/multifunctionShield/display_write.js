@@ -38,13 +38,13 @@ const segmentToBin = (segmentValue) => {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    init(block, arduinoGenerator);
+    const instanceName = init(block, arduinoGenerator);
     const d1 = segmentToBin(block.getFieldValue("D1"));
     const d2 = segmentToBin(block.getFieldValue("D2"));
     const d3 = segmentToBin(block.getFieldValue("D3"));
     const d4 = segmentToBin(block.getFieldValue("D4"));
     
-    return `display.write(${d1}, ${d2}, ${d3}, ${d4});\n`;
+    return `${instanceName}.write(${d1}, ${d2}, ${d3}, ${d4});\n`;
 };
 
 // Block registration

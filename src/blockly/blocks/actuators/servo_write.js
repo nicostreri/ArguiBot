@@ -1,4 +1,4 @@
-import {Block, common} from "blockly";
+import {Block, common, Names} from "blockly";
 import arduinoGenerator from "../../generators/arduino/arduino";
 
 const blockName = "servo_write";
@@ -28,7 +28,7 @@ const jsonDefinition = {
     "extensions": ["insert_pin_fields_extension"]
 };
 
-export const init = (block, varName, pin) => {
+export const init = (block, pin) => {
     //Required libs
     arduinoGenerator.addInclude("servo_lib", "#include <Servo.h>");
 
@@ -36,8 +36,11 @@ export const init = (block, varName, pin) => {
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.PWM, "actuator_servo");
     
     //Instance
-    arduinoGenerator.addVariable(varName, `Servo ${varName};`, false);
-    arduinoGenerator.addSetup(varName, `${varName}.attach(${pin});`, false);
+    const varName = "servo_" + pin;
+    const instanceName = arduinoGenerator.nameDB_.getName(varName, Names.NameType.DEVELOPER_VARIABLE);
+    arduinoGenerator.addVariable(instanceName, `Servo ${instanceName};`, false);
+    arduinoGenerator.addSetup(varName, `${instanceName}.attach(${pin});`, false);
+    return instanceName;
 }
 
 /**
@@ -49,11 +52,10 @@ export const blockToArduino = function (block) {
     //Block data
     const degree = block.getFieldValue('DEGREE');
     const pin = block.getFieldValue("PWMPIN_0");
-    const varName = "actuator_servo_" + pin;
+    const instanceName = init(block, pin);
 
-    init(block, varName, pin);
-    let code = `${varName}.attach(${pin});\n`;
-    code += `${varName}.write(${degree});`;
+    let code = `${instanceName}.attach(${pin});\n`;
+    code += `${instanceName}.write(${degree});`;
     return code + '\n';
 };
 

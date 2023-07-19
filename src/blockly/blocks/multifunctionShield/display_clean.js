@@ -23,9 +23,9 @@ const jsonDefinition = {
  * @return {string} Arduino code
  */
 const blockToArduino = function (block) {
-    init(block, arduinoGenerator);
+    const instanceName = init(block, arduinoGenerator);
     
-    return `display.clean();\n`;
+    return `${instanceName}.clean();\n`;
 };
 
 // Block registration

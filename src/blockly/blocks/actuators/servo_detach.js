@@ -29,10 +29,9 @@ const jsonDefinition = {
 export const blockToArduino = function (block) {
     //Block data
     const pin = block.getFieldValue("PWMPIN_0");
-    const varName = "actuator_servo_" + pin;
+    const instanceName = init(block, pin);
 
-    init(block, varName, pin);
-    let code = `${varName}.detach();`;
+    let code = `${instanceName}.detach();`;
     return code + '\n';
 };
 
