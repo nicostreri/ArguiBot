@@ -428,12 +428,14 @@ arduinoGenerator.scrub_ = function(block, code) {
  */
 arduinoGenerator.getArduinoType_ = function(typeBlockly) {
     switch (typeBlockly) {
-        case "Number":
+        case "Integer":
             return "int";
-        case "Boolean":
+        case "Bool":
             return 'boolean';
         case "String":
             return 'String';
+        case "Float":
+            return 'float';
         default:
             return 'InvalidBlocklyType';
     }

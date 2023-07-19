@@ -10,7 +10,8 @@ const COLOURS = {
   white: "#ffffff",
   darkRed: "#871918",
   darkBlue: "#083d58",
-  rose: "#a55b6d"
+  rose: "#a55b6d",
+  black: "#000000"
 }
 
 export default {
@@ -44,7 +45,8 @@ export default {
         board_category: { colour: COLOURS.orange },
         multi_shield_category: { colour: COLOURS.darkRed },
         sensors_category: { colour: COLOURS.darkBlue },
-        actuators_category: { colour: COLOURS.rose }
+        actuators_category: { colour: COLOURS.rose },
+        variables_category: { colour: COLOURS.black }
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,

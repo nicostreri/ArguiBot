@@ -127,6 +127,12 @@ export default {
                 { kind: "block", type: "servo_detach"},
                 { kind: "block", type: "servo_write_arg"}
             ]
-        }
+        },
+        {
+            kind: "category",
+            name: "Variables",
+            categorystyle: "variables_category",
+            custom: "VARIABLE"
+        },
     ]
 }

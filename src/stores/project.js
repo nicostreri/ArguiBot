@@ -18,6 +18,7 @@ import arduinoGenerator from "./../blockly/generators/arduino/arduino";
 import { changeBoard } from "../blockly/generators/arduino/boards";
 import { verifySaveCompileAndUploadSketch } from "./../helpers/arduinoCLIService";
 import { MARK_FOR_REVIEW_URL } from "../config/globals";
+import { initVariables } from "../blockly/variables";
 
 export const useProjectStore = defineStore("currentProject", () => {
     //Stores
@@ -114,6 +115,7 @@ export const useProjectStore = defineStore("currentProject", () => {
         const wrkspace = Blockly.inject(element.value, blocklyOptions);
         wrkspace.addChangeListener(Blockly.Events.disableOrphans);
         wrkspace.addChangeListener(_handleCurrentWorkspaceChange);
+        initVariables(wrkspace);
 
         //Render project
         changeBoard(wrkspace, board.currentSelectedBoard);
