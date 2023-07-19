@@ -35,7 +35,7 @@ const blockToArduino = function (block) {
     let value = arduinoGenerator.valueToCode(block, 'VALUETOSHOW', order) || '0';
 
     const startValue = "0b11111111, 0b11111111, "; 
-    const trueValue = startValue + "0b10010010, 0b11111001";
+    const trueValue = startValue + "0b10010010, 0b11001111";
     const falseValue = startValue + "0b11001000, 0b11000000";
 
     return `if(${value}){${instanceName}.write(${trueValue});} else {${instanceName}.write(${falseValue});}\n`;
