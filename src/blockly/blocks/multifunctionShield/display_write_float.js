@@ -9,7 +9,7 @@ const blockName = "multi_shield_display_write_float";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Mostrar en la pantalla el número decimal %1",
+    "message0": "Mostrar en la pantalla el número real %1",
     "args0": [
       {
         "type": "input_value",
@@ -20,7 +20,7 @@ const jsonDefinition = {
     "previousStatement": null,
     "nextStatement": null,
     "style": "multi_shield_blocks",
-    "tooltip": "Muestra un número decimal en la pantalla. Solo puede mostrar números entre 0 y 999, debido al tamaño de la pantalla.",
+    "tooltip": "Muestra un número real en la pantalla. Solo puede mostrar números entre 0 y 999, debido al tamaño de la pantalla.",
     "helpUrl": ""
 };
 
