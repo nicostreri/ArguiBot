@@ -8,13 +8,12 @@ const blockName = "sensor_ultrasonic_HCSR04";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Distancia actual S. de ultrasonido %1 TRIGGER en %2 ECHO en %3",
+    "message0": "Distancia actual S. de ultrasonido (TRIGGER en %1 ECHO en %2)",
     "args0":[
-        {"type": "input_dummy"},
         {"type": "input_dummy", "name": "PD_0"},
         {"type": "input_dummy", "name": "PD_1"}
     ],
-    "inputsInline": false,
+    "inputsInline": true,
     "output": "Number",
     "tooltip": "Obtiene la distancia medida por el sensor de ultrasonido HC-SR 04. El valor devuelto está en centímetros.",
     "helpUrl": "",
