@@ -8,14 +8,15 @@ const blockName = "board_digital_read";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Estado actual del %1",
+    "message0": "Estado actual del %1 (LI* %2)",
     "args0":[
-        {"type": "input_dummy", "name": "PD_0"}
+        {"type": "input_dummy", "name": "PD_0"},
+        {"type": "field_checkbox", "name": "INVERTED", "checked": false}
     ],
     "inputsInline": true,
     "output": "Boolean",
     "style": "board_blocks",
-    "tooltip": "Lee el estado actual de un PIN digital del controlador.",
+    "tooltip": "Lee el estado actual de un PIN digital del controlador. Habilitar LI si el dispositivo conectado al pin trabaja con lógica invertida.",
     "helpUrl": "",
     "extensions": ["insert_pin_fields_extension"]
 }
@@ -27,11 +28,13 @@ const jsonDefinition = {
  */
 const blockToArduino = function (block) {
     const pin = block.getFieldValue("DIGITALPIN_0");
-
+    const inverted = block.getFieldValue("INVERTED") == "TRUE";
+    
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.INPUT, "digitalRead");
     arduinoGenerator.addSetup('pin_mode_' + pin, `pinMode(${pin}, INPUT);`, false);
 
-    const code = `digitalRead(${pin})`;
+    let code = `digitalRead(${pin})`;
+    if(inverted) code = "!" + code;
     return [code, arduinoGenerator.ORDER_ATOMIC];
 };
 

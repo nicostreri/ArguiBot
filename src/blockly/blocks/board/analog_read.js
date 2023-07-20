@@ -8,14 +8,15 @@ const blockName = "board_analog_read";
 */
 const jsonDefinition = {
     "type": blockName,
-    "message0": "Estado actual del %1",
+    "message0": "Estado actual del %1 (LI* %2)",
     "args0":[
-        {"type": "input_dummy", "name": "PA_0"}
+        {"type": "input_dummy", "name": "PA_0"},
+        {"type": "field_checkbox", "name": "INVERTED", "checked": false}
     ],
     "inputsInline": true,
     "output": "Number",
     "style": "board_blocks",
-    "tooltip": "Lee el estado actual de un PIN analógico del controlador.",
+    "tooltip": "Lee el estado actual de un PIN analógico del controlador. Habilitar LI si el dispositivo conectado al pin trabaja con lógica invertida.",
     "helpUrl": "",
     "extensions": ["insert_pin_fields_extension"]
 }
@@ -27,11 +28,13 @@ const jsonDefinition = {
  */
 const blockToArduino = function (block) {
     const pin = block.getFieldValue("ANALOGPIN_0");
+    const inverted = block.getFieldValue("INVERTED") == "TRUE";
 
     arduinoGenerator.reservePin(block, pin, arduinoGenerator.PinTypes.INPUT, "analogRead");
     arduinoGenerator.addSetup('pin_mode_' + pin, `pinMode(${pin}, INPUT);`, false);
 
-    const code = `analogRead(${pin})`;
+    let code = `analogRead(${pin})`;
+    if(inverted) code = `(1023 - ${code})`;
     return [code, arduinoGenerator.ORDER_ATOMIC];
 };
 
