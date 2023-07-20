@@ -15,6 +15,7 @@ const COLOURS = {
 }
 
 export default {
+    renderer: "Zelos",
     media: "media/",
     grid: {
       spacing: 40,
@@ -26,7 +27,8 @@ export default {
       wheel: true
     },
     zoom: {
-      controls: true
+      controls: true,
+      startScale: 0.85
     },
     toolbox: arduinoToolbox,
     theme: Theme.defineTheme('stTheme', {
