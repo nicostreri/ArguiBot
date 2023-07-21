@@ -19,11 +19,13 @@ export const init = (block, arduinoGenerator, compatibilityMode = false) => {
         arduinoGenerator.addYield("multi_shield_screen_yield", `${instanceName}.refresh();\n`, true);
         arduinoGenerator.addSetup("multi_shield_screen_setup", "", true);
         arduinoGenerator.addInclude("timer_one_lib", "", "", true);
+        arduinoGenerator.addFlag("multi_shield_screen_compatibility_mode", true, true);  
     }else{
         let setupCode = "Timer1.initialize();\n";
         setupCode += `Timer1.attachInterrupt([]() {${instanceName}.refresh();}, 500);\n`;
         arduinoGenerator.addSetup("multi_shield_screen_setup", setupCode, false);
-        arduinoGenerator.addInclude("timer_one_lib", "#include <TimerOne.h>", "", false);        
+        arduinoGenerator.addInclude("timer_one_lib", "#include <TimerOne.h>", "", false);
+        arduinoGenerator.addFlag("multi_shield_screen_compatibility_mode", false, false);      
     }
     
     return instanceName;

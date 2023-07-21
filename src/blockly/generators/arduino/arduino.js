@@ -202,9 +202,10 @@ arduinoGenerator.isURL_ = (string) => {
  * Add a temporary flag that allows a value to be stored during code generation
  * @param {string} flag Identifier for this flag
  * @param {object} value Value for this flag
+ * @param {boolean=} overwrite Flag to ignore previously set value.
  */
-arduinoGenerator.addFlag = function(flag, value){
-    if(arduinoGenerator.flags_[flag] === undefined){
+arduinoGenerator.addFlag = function(flag, value, overwrite){
+    if(overwrite || arduinoGenerator.flags_[flag] === undefined){
         arduinoGenerator.flags_[flag] = value;
     }
 }
