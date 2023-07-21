@@ -25,7 +25,8 @@ const generateGetterBlock = (t) => {
         "output": t.getType,
         "style": t.style,
         "tooltip": `Usar el ${t.name} almacenado en una variable.`,
-        "helpUrl": ""
+        "helpUrl": "",
+        "extensions": ["check_var_initialization"]
     };
 
     // Block registration

@@ -1,4 +1,5 @@
 import * as Blockly from "blockly";
+import './check_var_initialization_extension';
 import './setters_getters_blocks';
 import { getVariablesTypes } from "./setters_getters_blocks";
 
