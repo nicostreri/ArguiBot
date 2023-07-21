@@ -30,7 +30,7 @@ const getUltrasonicHCSR04read = () => {
         'long ' + arduinoGenerator.FUNCTION_NAME_PLACEHOLDER_ + '(int trigger, int echo) {',
         '   long t;',
         '   long d = 0;',
-        '   for(int i=0; i<15; i++){',
+        '   for(int i=0; i<4; i++){',
         '       digitalWrite(trigger, LOW);',
         '       delayMicroseconds(2);',
         '       digitalWrite(trigger, HIGH);',
