@@ -40,7 +40,7 @@ const getUltrasonicHCSR04read = () => {
         '       d += t / 29;',
         '       delay(20);',
         '   }',
-        '   d = d/15;',
+        '   d = d/4;',
         '   return d;',
         '}'
     ].join('\n');
