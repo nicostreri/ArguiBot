@@ -5,11 +5,11 @@ import { Events, Extensions } from "blockly";
  */
 const serialReadOnCheckBlockMixin = {
     /**
-     * Is this block enclosed (at any level) by a loop?
+     * Is this block enclosed (at any level) by a Serial Read Check?
      *
-     * @returns The nearest surrounding loop, or null if none.
+     * @returns The nearest surrounding Serial Read Check, or null if none.
      */
-    getSurroundLoop: function () {
+    getSurroundCheck: function () {
         let block = this;
         do {
             if ("board_serial_read_check" == block.type) {
@@ -32,7 +32,7 @@ const serialReadOnCheckBlockMixin = {
       if (!ws.isDragging || ws.isDragging() || e.type !== Events.BLOCK_MOVE) {
         return;
       }
-      const enabled = !!this.getSurroundLoop();
+      const enabled = !!this.getSurroundCheck();
       this.setWarningText(
         enabled ? null : "Se debe comprobar que se recibieron datos por la conexión Serial antes de usar el bloque."
       );
