@@ -5,6 +5,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBoardStore } from "./board";
 import { usePortStore } from "./port";
+import { useProjectStore } from "./project";
 import { usePackLibsStore } from "./packLibs";
 
 //Tauri APIs
@@ -15,6 +16,7 @@ export const useAppStore = defineStore('app', () => {
     const board = useBoardStore();
     const port = usePortStore();
     const packLibs = usePackLibsStore();
+    const project = useProjectStore();
 
     //Properties
     const isDarkTheme = ref(false);
@@ -23,6 +25,17 @@ export const useAppStore = defineStore('app', () => {
     //...
     
     //Actions
+    function initAutoSave(){
+        setInterval(() => {
+            console.log("Start auto save...");
+            project.save().then(() => {
+                console.log("Auto saved!");
+            }).catch((e) => {
+                console.log("Fail auto save", e);
+            });
+        }, 30000);
+    }
+
     function toggleDarkTheme(enableDarkTheme){
         if(enableDarkTheme){
             document.documentElement.setAttribute('theme-mode', 'dark');
@@ -36,6 +49,7 @@ export const useAppStore = defineStore('app', () => {
         board.updateList();
         port.updateList();
         packLibs.checkUpdates();
+        initAutoSave();
     }
 
     function toggleTheme(){
