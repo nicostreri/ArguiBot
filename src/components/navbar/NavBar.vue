@@ -16,7 +16,7 @@
   import EditorSubMenu from "./EditorSubMenu.vue";
   import ProgrammingSubMenu from "./ProgrammingSubMenu.vue";
   import RunButton from "./RunButton.vue";
-  import { RollbackIcon, RollfrontIcon } from "tdesign-icons-vue-next";
+  import { RollbackIcon, RollfrontIcon, AppIcon } from "tdesign-icons-vue-next";
   import SaveButton from "./SaveButton.vue";
   import UserMenu from "./UserMenu.vue";
   import ReviewButton from "./ReviewButton.vue";
@@ -92,12 +92,16 @@
 <template>
   <div data-tauri-drag-region class="titlebar"></div>
 
-  <t-head-menu :collapsed="true" class="menu" value="appMainMenu" expand-type="popup">
+  <t-head-menu  class="menu" value="appMainMenu" expand-type="popup">
     <template #logo><img height="28" src="icon.png" alt="Logo de la aplicación"/></template>
-    <FileSubMenu @onSelect="handleSelectedOption" />
-    <EditorSubMenu @onSelect="handleSelectedOption"/>
-    <ProgrammingSubMenu @onSelect="handleSelectedOption"/>
-        
+
+    <t-submenu title="Menú" class="over-bar">
+      <template #icon><AppIcon /></template>
+      <FileSubMenu @onSelect="handleSelectedOption" />
+      <EditorSubMenu @onSelect="handleSelectedOption"/>
+      <ProgrammingSubMenu @onSelect="handleSelectedOption"/>
+    </t-submenu>
+         
     <template #operations>
       <t-space class="over-bar" style="padding-right: 110px;">
         <ReviewButton></ReviewButton>

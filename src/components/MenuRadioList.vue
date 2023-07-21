@@ -46,7 +46,7 @@
   }
   .radio-list{
     overflow: auto;
-    max-height: 500px;
+    max-height: 300px;
   }
 
   .radio-list::-webkit-scrollbar{

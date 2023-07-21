@@ -42,7 +42,7 @@
     <t-button v-if="project.hasReview" :onClick="handleViewButton"
         shape="round" theme="warning" variant="outline"
     >
-        <template #icon><BrowseIcon/></template> Ver revisión del docente
+        <template #icon><BrowseIcon/></template> Ver revisión
     </t-button>
 
     <t-dialog
