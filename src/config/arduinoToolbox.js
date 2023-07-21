@@ -122,6 +122,7 @@ export default {
             categorystyle: "multi_shield_category",
             contents: [
                 { kind: "label", text: "Pantalla"},
+                { kind: "block", type: "multi_shield_display_compatibility_mode"},
                 { kind: "block", type: "multi_shield_display_clean"},
                 { kind: "block", type: "multi_shield_display_write_int"},
                 { kind: "block", type: "multi_shield_display_write_float"},

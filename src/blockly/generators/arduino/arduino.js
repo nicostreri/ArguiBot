@@ -228,9 +228,10 @@ arduinoGenerator.getFlag = function(flag){
  * @param {!string} includeTag Identifier for this include code.
  * @param {!string} code Code to be included at the very top of the sketch.
  * @param {!string} requiredLib name or download URL of the library that includes the header
+ * @param {boolean=} overwrite Flag to ignore previously set value.
  */
-arduinoGenerator.addInclude = function(includeTag, code, requiredLib = "") {
-    if(arduinoGenerator.includes_[includeTag] === undefined) {
+arduinoGenerator.addInclude = function(includeTag, code, requiredLib = "", overwrite) {
+    if(overwrite || arduinoGenerator.includes_[includeTag] === undefined) {
         arduinoGenerator.includes_[includeTag] = code;
 
         if(requiredLib){
