@@ -68,6 +68,15 @@ export default {
         },
         {
             kind: "category",
+            name: "Texto",
+            categorystyle: "string_category",
+            contents: [
+                { kind: "label", text: "Valores Literales"},
+                { kind: "block", type: "string_literal"},
+            ]
+        },
+        {
+            kind: "category",
             name: "Placa Arduino",
             categorystyle: "board_category",
             contents: [
@@ -84,6 +93,23 @@ export default {
                 { kind: "label", text: "Control de PIN analógico"},
                 { kind: "block", type: "board_analog_write"},
                 { kind: "block", type: "board_analog_read"}
+            ]
+        },
+        {
+            kind: "category",
+            name: "Conexión Serial",
+            categorystyle: "communication_category",
+            contents: [
+                { kind: "label", text: "Envío de Datos"},
+                { kind: "block", type: "board_serial_print_string"},
+                { kind: "block", type: "board_serial_print_int"},
+                { kind: "block", type: "board_serial_print_bool"},
+                
+                { kind: "label", text: "Recepción de Datos"},
+                { kind: "block", type: "board_serial_read_check"},
+                { kind: "block", type: "board_serial_read_int"},
+                { kind: "block", type: "board_serial_read_float"},
+                { kind: "block", type: "board_serial_read_string"}
             ]
         },
         {

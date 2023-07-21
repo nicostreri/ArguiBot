@@ -27,7 +27,8 @@ arduinoGenerator.addReservedWords('Blockly,' +
     'noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,' +
     'min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,' +
     'lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,' +
-    'detachInterrupt,interrupts,noInterrupts'
+    'detachInterrupt,interrupts,noInterrupts,' + 
+    'Serial,Serial1,Serial2,Serial3'
 );
 
 /**
@@ -375,7 +376,8 @@ arduinoGenerator.quote_ = function(string) {
     string = string.replace(/\\/g, '\\\\')
                    .replace(/\n/g, '\\\n')
                    .replace(/\$/g, '\\$')
-                   .replace(/'/g, '\\\'');
+                   .replace(/'/g, '\\\'')
+                   .replace(/"/g, '\\\"');
     return '\"' + string + '\"';
 };
   

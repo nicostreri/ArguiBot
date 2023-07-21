@@ -5,7 +5,8 @@ export const getVariablesTypes = () => {
     return Object.freeze([
         {key: "Integer", name: "Número Entero", varName: "Entera", setType: "Number", getType: "Number", style: "math_blocks"},
         {key: "Float", name: "Número Real", varName: "Real", setType: "Number", getType: "Number", style: "math_blocks"},
-        {key: "Bool", name: "Valor Lógico", varName: "Logica", setType: "Boolean", getType: "Boolean", style: "logic_blocks"},
+        {key: "Bool", name: "Valor Lógico", varName: "Lógica", setType: "Boolean", getType: "Boolean", style: "logic_blocks"},
+        {key: "String", name: "Texto", varName: "Texto", setType: "String", getType: "String", style: "string_blocks"}
     ]);
 }
 

@@ -38,6 +38,14 @@ import './board/analog_write';
 import './board/analog_read';
 import './board/wait_for';
 import './board/stop';
+import './board/communication/serial_read_on_check_block_extension';
+import './board/communication/serial_print_int';
+import './board/communication/serial_print_string';
+import './board/communication/serial_print_bool';
+import './board/communication/serial_read_check';
+import './board/communication/serial_read_int';
+import './board/communication/serial_read_float';
+import './board/communication/serial_read_string';
 
 /**
  * Blocks of Multifunction Shield
@@ -57,3 +65,5 @@ import './actuators/servo_write';
 import './actuators/servo_write_detach';
 import './actuators/servo_detach';
 import './actuators/servo_write_arg';
+
+import './string';
