@@ -73,6 +73,10 @@ export default {
             contents: [
                 { kind: "label", text: "Valores Literales"},
                 { kind: "block", type: "string_literal"},
+                { kind: "block", type: "char_literal"},
+
+                { kind: "label", text: "Operaciones"},
+                { kind: "block", type: "char_to_ascii"}
             ]
         },
         {
