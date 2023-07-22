@@ -41,7 +41,6 @@ Blocks[blockName] = {
     init: function() {
         this.jsonInit(jsonDefinition);
         this.setDeletable(false);
-        this.setMovable(false);
         this.setEditable(false);
     }
 };
