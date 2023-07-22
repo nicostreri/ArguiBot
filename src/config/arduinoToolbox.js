@@ -143,6 +143,11 @@ export default {
             name: "Sensores",
             categorystyle: "sensors_category",
             contents: [
+                { kind: "label", text: "Receptor Infrarrojo"},
+                { kind: "block", type: "sensor_ir_read_check"},
+                { kind: "block", type: "sensor_ir_read_code"},
+                
+                { kind: "label", text: "Otros sensores"},
                 { kind: "block", type: "sensor_ultrasonic_HCSR04"},
                 { kind: "block", type: "sensor_dht11"}
             ]

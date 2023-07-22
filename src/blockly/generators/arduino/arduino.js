@@ -28,7 +28,7 @@ arduinoGenerator.addReservedWords('Blockly,' +
     'min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,' +
     'lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,' +
     'detachInterrupt,interrupts,noInterrupts,' + 
-    'Serial,Serial1,Serial2,Serial3'
+    'Serial,Serial1,Serial2,Serial3,IrReceiver'
 );
 
 /**

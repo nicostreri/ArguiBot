@@ -57,6 +57,9 @@ import './multifunctionShield';
  */
 import './sensors/ultrasonic_HCSR04';
 import './sensors/dht11';
+import './sensors/ir/ir_read_check';
+import './sensors/ir/ir_read_on_check_block_extension';
+import './sensors/ir/ir_read_code';
 
 /**
  * Blocks of actuators
