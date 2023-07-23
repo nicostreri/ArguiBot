@@ -39,7 +39,7 @@
         <t-header data-tauri-drag-region>
             <t-head-menu class="navbar" value="groupFromView">
                 <template #logo>
-                    <img height="28" src="icon.png" alt="Logo de la aplicación"/>
+                    <img height="28" src="/icon.png" alt="Logo de la aplicación"/>
                 </template>
             </t-head-menu>
         </t-header>

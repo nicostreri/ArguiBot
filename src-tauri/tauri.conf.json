@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "RoboticaSTDesktopApp",
-    "version": "0.0.0"
+    "version": "2.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -99,7 +99,7 @@
         "title": "RoboticaSTDesktopApp",
         "width": 950,
         "height": 620,
-        "visible": true,
+        "visible": false,
         "center": true,
         "minWidth": 950,
         "minHeight": 620,
@@ -112,7 +112,8 @@
         "url": "splashscreen.html",
         "label": "splashscreen",
         "center": true,
-        "alwaysOnTop": true
+        "alwaysOnTop": true,
+        "resizable": false
       }
     ]
   }

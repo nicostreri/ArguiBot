@@ -58,7 +58,9 @@ export const useAppStore = defineStore('app', () => {
     }
 
     function onStartVue(){
-        invoke('close_splashscreen');
+        setTimeout(() => {
+            invoke('close_splashscreen');
+        }, 5000);
     }
 
     return {isDarkTheme, startApp, toggleTheme, onStartVue};

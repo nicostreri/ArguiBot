@@ -93,7 +93,7 @@
   <div data-tauri-drag-region class="titlebar"></div>
 
   <t-head-menu  class="menu" value="appMainMenu" expand-type="popup">
-    <template #logo><img height="28" src="icon.png" alt="Logo de la aplicación"/></template>
+    <template #logo><img height="28" src="/icon.png" alt="Logo de la aplicación"/></template>
 
     <t-submenu title="Menú" class="over-bar">
       <template #icon><AppIcon /></template>
