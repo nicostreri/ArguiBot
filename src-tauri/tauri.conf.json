@@ -4,18 +4,56 @@
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist",
-    "withGlobalTauri": false
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "RoboticaSTDesktopApp",
-    "version": "0.0.0"
+    "version": "2.0.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "shell": {
         "all": false,
-        "open": true
+        "open": true,
+        "sidecar": true,
+        "scope": [
+          { "name": "binaries/arduino-cli", "sidecar": true, "args": true }
+        ]
+      },
+      "fs": {
+        "all": false,
+        "copyFile": false,
+        "createDir": true,
+        "exists": true,
+        "readDir": false,
+        "readFile": true,
+        "removeDir": false,
+        "removeFile": false,
+        "renameFile": false,
+        "scope": ["$APPDATA/**", "$APPLOCALDATA/**"],
+        "writeFile": true
+      },
+      "path": {
+        "all": true
+      },
+      "dialog": {
+        "all": false,
+        "message": true,
+        "save": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true,
+        "create": true,
+        "setFocus": true
       }
     },
     "bundle": {
@@ -27,22 +65,55 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "targets": "all"
+      "identifier": "com.streri.roboticast.desktop",
+      "targets": "all",
+      "externalBin": [
+        "binaries/arduino-cli"
+      ]
     },
     "security": {
-      "csp": null
+      "csp": null,
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "domain": "roboticatauri.streri.com",
+          "windows": ["main"],
+          "enableTauriAPI": true
+        },
+        {
+          "domain": "archivos.streri.com",
+          "windows": ["main"],
+          "enableTauriAPI": true
+        }
+      ]
     },
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": ["https://roboticatauri.streri.com/releases/{{target}}_{{arch}}.json"],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDg0NEZERkM2MEM4MTNFNDkKUldSSlBvRU14dDlQaFB5NVBkY1N2SUxZL0g0N1UxbTZPNGZ3dzZXbnFQQmoxZG1sQ3k0SnVXQ2EK"
     },
     "windows": [
       {
         "fullscreen": false,
         "resizable": true,
         "title": "RoboticaSTDesktopApp",
-        "width": 800,
-        "height": 600
+        "width": 950,
+        "height": 620,
+        "visible": false,
+        "center": true,
+        "minWidth": 950,
+        "minHeight": 620,
+        "decorations": false
+      },
+      {
+        "width": 400,
+        "height": 200,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen",
+        "center": true,
+        "alwaysOnTop": true,
+        "resizable": false
       }
     ]
   }

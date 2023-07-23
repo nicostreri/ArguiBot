@@ -1,9 +1,36 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) =>
+            [
+              "field",
+              "block",
+              "category",
+              "xml",
+              "mutation",
+              "value",
+              "sep",
+              "shadow"
+            ].includes(tag),
+        },
+      },
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "node_modules/blockly/media/*",
+          dest: 'media'
+        }
+      ]
+    })
+  ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   // prevent vite from obscuring rust errors
