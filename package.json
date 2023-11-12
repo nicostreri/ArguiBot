@@ -27,7 +27,7 @@
     "@tauri-apps/cli": "^1.5.6",
     "@vitejs/plugin-vue": "^4.0.0",
     "sass": "^1.62.1",
-    "vite": "^4.2.1",
+    "vite": "^4.3.9",
     "vite-plugin-static-copy": "^0.15.0"
   }
 }
