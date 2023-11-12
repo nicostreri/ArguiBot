@@ -1,10 +1,10 @@
 [package]
-name = "RoboticaSTDesktopApp"
+name = "arguibot"
 version = "2.0.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+description = "Entorno de desarrollo basado en la programación en bloque para la enseñanza de la robótica usando la plataforma Arduino"
+authors = ["Nicolás Streri <nicolas@streri.com>"]
+license = "MIT"
+repository = "https://github.com/nicostreri/ArguiBot"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
