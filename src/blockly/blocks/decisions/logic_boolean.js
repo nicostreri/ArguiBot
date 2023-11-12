@@ -20,4 +20,4 @@ const booleanblockToArduino = function (block) {
 };
 
 // Block registration
-arduinoGenerator[blockName] = booleanblockToArduino;
+arduinoGenerator.forBlock[blockName] = booleanblockToArduino;

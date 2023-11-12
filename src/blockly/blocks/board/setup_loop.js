@@ -44,4 +44,4 @@ Blocks[blockName] = {
         this.setEditable(false);
     }
 };
-arduinoGenerator[blockName] = blockToArduino;
+arduinoGenerator.forBlock[blockName] = blockToArduino;
