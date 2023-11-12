@@ -57,4 +57,4 @@ const blockToArduino = function (block) {
 
 // Block registration
 common.defineBlocksWithJsonArray([jsonDefinition]);
-arduinoGenerator[blockName] = blockToArduino;
+arduinoGenerator.forBlock[blockName] = blockToArduino;

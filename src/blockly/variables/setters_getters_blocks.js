@@ -31,7 +31,7 @@ const generateGetterBlock = (t) => {
 
     // Block registration
     common.defineBlocksWithJsonArray([jsonDefinition]);
-    arduinoGenerator[getterBlockName] = getBlockToArduino;
+    arduinoGenerator.forBlock[getterBlockName] = getBlockToArduino;
 }
 
 /**
@@ -74,7 +74,7 @@ const generateSetterBlock = (t) => {
 
     // Block registration
     common.defineBlocksWithJsonArray([jsonDefinition]);
-    arduinoGenerator[setterBlockName] = setBlockToArduino;
+    arduinoGenerator.forBlock[setterBlockName] = setBlockToArduino;
 }
 
 /**

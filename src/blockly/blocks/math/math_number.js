@@ -25,4 +25,4 @@ const numberblockToArduino = function (block) {
 };
 
 // Block registration
-arduinoGenerator[blockName] = numberblockToArduino;
+arduinoGenerator.forBlock[blockName] = numberblockToArduino;

@@ -32,5 +32,5 @@ const blockToArduino = function(forceElse, block) {
 };
 
 // Block registration
-arduinoGenerator[blockName] = (block) => blockToArduino(false, block);
-arduinoGenerator[blockName2] = (block) => blockToArduino(true, block);
+arduinoGenerator.forBlock[blockName] = (block) => blockToArduino(false, block);
+arduinoGenerator.forBlock[blockName2] = (block) => blockToArduino(true, block);
