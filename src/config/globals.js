@@ -1,5 +1,5 @@
 //App
-export const APP_NAME = "RoboticaST";
+export const APP_NAME = "ArguiBot";
 export const APP_DEVELOPER = "Streri Labs";
 export const APP_COPYRIGHT_MSG = `${APP_NAME} es un proyecto libre desarrollado por ${APP_DEVELOPER}.`;
 

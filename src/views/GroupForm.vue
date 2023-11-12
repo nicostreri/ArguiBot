@@ -15,6 +15,7 @@
     
     //Internal state
     const groupID = ref('');
+    const groupIDField = ref(null);
     
     //Handlers
     const handleToggleTheme = () => {
@@ -30,6 +31,7 @@
                 placement: 'bottom-right',
                 duration: 5000
             });
+            groupIDField.value?.focus();
         });
     }
 </script>
@@ -48,7 +50,7 @@
                 <Vue3Lottie :animationData="loginAnimation" :height="200" :width="200" />
                 <h1>Iniciar sesión para continuar</h1>
                 <t-space>
-                    <t-input class="input-group" v-model="groupID" clearable placeholder="Código de grupo" />
+                    <t-input ref="groupIDField" :autofocus="true" :disabled="group.isLoading.value" :onEnter="handleEnterButton" class="input-group" v-model="groupID" clearable placeholder="Código de grupo" />
                     <t-button :loading="group.isLoading.value" :onClick="handleEnterButton">Ingresar</t-button>
                 </t-space>
             </t-space>
