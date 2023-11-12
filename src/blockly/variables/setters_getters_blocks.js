@@ -50,7 +50,7 @@ const generateSetterBlock = (t) => {
     const setterBlockName = "variables_set_" + t.key;
     const jsonDefinition = {
         "type": setterBlockName,
-        "message0": "%{BKY_VARIABLES_SET}",
+        "message0": "Guardar en %1 el valor %2",
         "args0": [
             {
                 "type": "field_variable",
