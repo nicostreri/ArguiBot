@@ -9,3 +9,7 @@ https://github.com/itfoundry/hind-madurai
 
 //Librerias o projectos bases
 https://github.com/sensebox/ardublockly
+
+//Animaciones
+https://lottiefiles.com/animations/loginhoclieuvn-q6fBgLltL0
+https://lottiefiles.com/animations/annoncer-pricing-0k1DVWbeGP
