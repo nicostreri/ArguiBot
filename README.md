@@ -32,3 +32,8 @@ ArguiBot IDE está diseñado utilizando las siguientes herramientas:
 - [Blockly](https://github.com/google/blockly)
 - [Tauri](https://tauri.app/)
 - Node, Vue.JS, Pinia.
+
+## Licencia
+The MIT License (MIT). Please see [License File](./LICENSE) for more information.
+
+Third party credits: [see more here](./docs/thirdPartyLicenses.txt)
