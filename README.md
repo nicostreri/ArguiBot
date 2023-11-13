@@ -5,6 +5,24 @@ ArguiBot está diseñado utilizando un conjunto reducido de bloques que simplifi
 
 ![Captura de pantalla de la interfaz de ArguiBot, se visualiza la paleta de bloques disponibles y un ejemplo de algoritmo.](./docs/UI.png)
 
+## Instalación
+Seguir los siguientes pasos para lograr una instalación de ArguiBot:
+
+1. Descargar el instalador de la última versión de ArguiBot disponible [aqui](https://github.com/nicostreri/ArguiBot/releases).
+2. Ejecutar el instalador y seguir los pasos.
+3. Instalar el core de Arduino AVR. Para ello ejecutar:
+
+```bash
+    # Ir a la carpeta de instalación
+    cd C:\Users\....\ArguiBot IDE\
+
+    # Instalar Arduino AVR
+    .\arduino-cli.exe core install arduino:avr
+```
+4. Ejecutar la herramienta. Utilizar el código de grupo: "*grupodemo*"
+
+**Nota:** Actualmente, el servidor de sincronización de ArguiBot está en desarrollo, la herramienta solamente se conecta a un servidor de prueba.
+
 ## Compilación y Conexión al Servidor
 TODO
 
@@ -24,6 +42,8 @@ A continuación se presenta la lista de funcionalidades próximas a implementar:
 [_] Documentar el API de actualización del programa y de las bibliotecas Arduino utilizadas.
 
 [_] API para incorporar bloques de forma remota.
+
+[_] Automatizar el proceso de instalación del core Arduino AVR.
 
 
 ## Desarrollo, Tecnologías y Compilación 
