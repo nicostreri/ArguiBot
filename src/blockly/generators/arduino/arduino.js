@@ -332,6 +332,32 @@ arduinoGenerator.addFunction = function(preferedName, code) {
 };
 
 /**
+ * Adds a string of code as a user function. It takes an identifier (meant to be the
+ * function name) to only keep a single copy even if multiple blocks might
+ * request this function to be created.
+ * A function (and its code) will only be added on first request.
+ * @param {!string} preferedName Identifier for the function.
+ * @param {!string} code Function string code.
+ * @return {!string} A unique function name based on input name.
+ */
+arduinoGenerator.addUserFunction = function(preferedName, code) {
+    const functionName = arduinoGenerator.getUserFunctionName(preferedName);
+    if(arduinoGenerator.userFunctions_[preferedName] === undefined) {
+        arduinoGenerator.userFunctions_[preferedName] = code.replace(arduinoGenerator.FUNCTION_NAME_PLACEHOLDER_, functionName);
+    }
+    return functionName;
+};
+
+arduinoGenerator.getUserFunctionName = function(preferedName){
+    preferedName = 'user_' + preferedName;
+    if(arduinoGenerator.functionNames_[preferedName] === undefined) {
+        let uniqueName = arduinoGenerator.nameDB_.getDistinctName(preferedName, Names.NameType.PROCEDURE);
+        arduinoGenerator.functionNames_[preferedName] = uniqueName;
+    }
+    return arduinoGenerator.functionNames_[preferedName];
+}
+
+/**
  * Reserves a pin from the Arduino board, recording the purpose of its use
  * @param {!Blockly.Block} block The block that uses the pin
  * @param {!string} pin Arduino board pin.

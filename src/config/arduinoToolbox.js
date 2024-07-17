@@ -170,5 +170,10 @@ export default {
             categorystyle: "variables_category",
             custom: "VARIABLE"
         },
+        {
+            kind: "category",
+            name: "Subalgoritmos",
+            custom: "PROCEDURE"
+        }
     ]
 }

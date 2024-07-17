@@ -70,3 +70,8 @@ import './actuators/servo_detach';
 import './actuators/servo_write_arg';
 
 import './string';
+
+/**
+ * Blocks of procedures
+ */
+import './procedures';
