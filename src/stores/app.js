@@ -20,6 +20,7 @@ export const useAppStore = defineStore('app', () => {
 
     //Properties
     const isDarkTheme = ref(false);
+    const aboutDialogOpenned = ref(false);
 
     //Getters
     //...
@@ -57,13 +58,18 @@ export const useAppStore = defineStore('app', () => {
         toggleDarkTheme(isDarkTheme.value);
     }
 
+    function toggleAboutDialog(){
+        aboutDialogOpenned.value = !aboutDialogOpenned.value;
+        console.log(aboutDialogOpenned);
+    }
+
     function onStartVue(){
         setTimeout(() => {
             invoke('close_splashscreen');
         }, 5000);
     }
 
-    return {isDarkTheme, startApp, toggleTheme, onStartVue};
+    return {isDarkTheme, aboutDialogOpenned, startApp, toggleTheme, toggleAboutDialog, onStartVue};
 },
 {
     persist: true

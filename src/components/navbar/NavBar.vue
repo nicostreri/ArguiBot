@@ -16,7 +16,7 @@
   import EditorSubMenu from "./EditorSubMenu.vue";
   import ProgrammingSubMenu from "./ProgrammingSubMenu.vue";
   import RunButton from "./RunButton.vue";
-  import { RollbackIcon, RollfrontIcon, AppIcon } from "tdesign-icons-vue-next";
+  import { RollbackIcon, RollfrontIcon, AppIcon, InfoCircleIcon } from "tdesign-icons-vue-next";
   import SaveButton from "./SaveButton.vue";
   import UserMenu from "./UserMenu.vue";
   import ReviewButton from "./ReviewButton.vue";
@@ -84,6 +84,8 @@
 
       case E.SEARCH_PORT_EVENT: ports.updateList(); break;
       case E.RUN_EVENT: handleRun(); break;
+
+      case E.ABOUT_INFO_EVENT: app.toggleAboutDialog(); break;
       default: throw "Missing handler for " + event;
     }
   }
@@ -100,6 +102,13 @@
       <FileSubMenu @onSelect="handleSelectedOption" />
       <EditorSubMenu @onSelect="handleSelectedOption"/>
       <ProgrammingSubMenu @onSelect="handleSelectedOption"/>
+
+      <t-menu-item :onClick="clickToSelect(E.ABOUT_INFO_EVENT)">
+        <template #icon>
+          <InfoCircleIcon></InfoCircleIcon>
+        </template>
+        Acerca de...
+      </t-menu-item>
     </t-submenu>
          
     <template #operations>
