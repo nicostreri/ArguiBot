@@ -12,7 +12,7 @@
  *      SPDX-License-Identifier: Apache-2.0
  */
 
-import Blockly from 'blockly/core';
+import * as Blockly from "blockly/core";
 
 const SEGMENT_KEYS = ["a", "b", "c", "d", "e", "f", "g"];
 

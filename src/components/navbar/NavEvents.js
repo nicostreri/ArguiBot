@@ -13,5 +13,8 @@ export default {
 
     //Programming
     SEARCH_PORT_EVENT: 'prog:searchPort',
-    RUN_EVENT: 'prog:compileUpload'
+    RUN_EVENT: 'prog:compileUpload',
+
+    //About
+    ABOUT_INFO_EVENT: 'about:toggle'
 };

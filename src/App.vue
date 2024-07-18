@@ -7,6 +7,7 @@
 
     //Components
     import WindowButtons from "./components/WindowButtons.vue";
+    import AboutDialog from "./components/AboutDialog.vue";
     import PackLibrariesUpdateViewer from "./components/PackLibrariesUpdateViewer.vue";
 
     //Stores
@@ -21,6 +22,7 @@
 </script>
 <template>
     <WindowButtons></WindowButtons>
+    <AboutDialog></AboutDialog>
 
     <ProjectView v-if="group.isLoggedIn"></ProjectView>
     <GroupForm v-if="!group.isLoggedIn"></GroupForm>
