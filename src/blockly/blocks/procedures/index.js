@@ -14,7 +14,7 @@ delete Blockly.Blocks['procedures_ifreturn'];
  * @return {string} Arduino code
  */
 export const defBlockToArduino = function (block) {
-    const preferedName = block.getProcedureModel().getName();
+    const preferedName = block.getFieldValue('NAME');
     const branch = arduinoGenerator.statementToCode(block, 'STACK');
 
     const code = `void ${arduinoGenerator.FUNCTION_NAME_PLACEHOLDER_}(){\n ${branch} }\n`
@@ -28,7 +28,7 @@ export const defBlockToArduino = function (block) {
  * @return {string} Arduino code
  */
 export const callBlockToArduino = function (block) {
-    const generatedName = arduinoGenerator.getUserFunctionName(block.getProcedureModel().getName());
+    const generatedName = arduinoGenerator.getUserFunctionName(block.getFieldValue('NAME'));
     return `${generatedName}();\n`;
 };
 
