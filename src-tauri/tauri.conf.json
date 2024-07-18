@@ -61,7 +61,7 @@
     },
     "bundle": {
       "publisher": "Streri Labs",
-      "copyright": "Copyright (c) 2023 Nicolás Streri",
+      "copyright": "Copyright (c) 2024 Nicolás Streri",
       "longDescription": "Entorno de desarrollo de código abierto diseñado para la enseñanza de la robótica a estudiantes de nivel secundario.",
       "shortDescription": "Entorno de desarrollo para la enseñanza de la robótica.",
       "active": true,
