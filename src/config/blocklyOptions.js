@@ -5,6 +5,7 @@ const COLOURS = {
   lightBlue: "#4c97ff",
   lightGreen: "#5ba55b",
   violet: "#5b67a5",
+  violet2: "#995ba5",
   orange: "#b6780b",
   dark: "#2e2e2f",
   white: "#ffffff",
@@ -53,8 +54,9 @@ export default {
         sensors_category: { colour: COLOURS.darkBlue },
         actuators_category: { colour: COLOURS.rose },
         variables_category: { colour: COLOURS.black },
-        communication_category: {colour: COLOURS.blue },
-        string_category: {colour: COLOURS.lightBlue2 }
+        procedures_category: { colour: COLOURS.violet2 },
+        communication_category: { colour: COLOURS.blue },
+        string_category: { colour: COLOURS.lightBlue2 }
       },
       componentStyles: {
         toolboxBackgroundColour: COLOURS.dark,

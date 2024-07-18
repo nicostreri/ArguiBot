@@ -173,6 +173,7 @@ export default {
         {
             kind: "category",
             name: "Subalgoritmos",
+            categorystyle: "procedures_category",
             custom: "PROCEDURE"
         }
     ]
